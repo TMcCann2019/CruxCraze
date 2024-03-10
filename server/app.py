@@ -17,6 +17,7 @@ def check_auth():
     if request.endpoint not in open_access and not session.get('user_id'):
         raise Unauthorized
     
+
 @app.errorhandler(NotFound)
 def handle_not_found(e):
     response = make_response(
