@@ -12,7 +12,7 @@ class User(db.Model, SerializerMixin):
     email = db.Column(db.String(255), unique=True, nullable=False)
     _password_hash = db.Column(db.String)
     review_count = db.Column(db.Integer)
-    reviews = db.relationship('Review', backref='user', cascade=('all, delete'))
+    reviews = db.relationship('Review', backref='user', cascade=('all,delete'))
 
     serialize_rules = ('-reviews.user',)
 
@@ -40,11 +40,12 @@ class Review(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    climbingArea_id = db.Column(db.Integer, db.ForeignKey('climbing_area.id'))
+    climbing_area_id = db.Column(db.Integer, db.ForeignKey('climbing_areas.id'))
     rating = db.Column(db.Integer)
     comment = db.Column(db.String(255))
     date = db.Column(db.DateTime)
-    area = db.relationship('Climbing_Area', backref='reviews', cascade = ('all, delete'))
+    area = db.relationship('Climbing_Area', backref='reviews', cascade = ('all,delete'))
+    user = db.relationship('User', backref='reviews', cascade = ('all,delete'))
 
     serialize_rules = ('-user.reviews',)
 
@@ -79,9 +80,9 @@ class Attribute(db.Model, SerializerMixin):
     __tablename__ = 'attributes'
 
     id = db.Column(db.Integer, primary_key=True)
-    climbing_area_id = db.Column(db.Integer, db.ForeignKey('location.id'))
+    climbing_area_id = db.Column(db.Integer, db.ForeignKey('climbing_areas.id'))
     attributes = db.Column(db.String)
-    climbing_area = db.relationship('Climbing_Area', backref='attributes', cascade = ('all, delete'))
+    climbing_area = db.relationship('Climbing_Area', backref='attributes', cascade = ('all,delete'))
 
     serialize_rules = ('-climbing_area.attributes',)
 
@@ -91,7 +92,7 @@ class Location(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String)
     state = db.Column(db.String)
-    address = db.Column(db.String)
+    address = db.Column(db.String, unique=True)
     postal_code = db.Column(db.String)
     lattitude = db.Column(db.Float, unique=True)
     longitude = db.Column(db.Float, unique=True)
