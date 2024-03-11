@@ -1,104 +1,96 @@
-import { Route, Switch, useHistory } from 'react-router-dom'
-import {useEffect, useState} from 'react'
-import Authentication from './components/Authentication'
-import About from './components/About'
-import Navigation from './components/Navigation'
-import Profile from './components/Profile'
-import HomePage from './components/HomePage'
-import Locations from './components/Locations'
-import AreaForm from './components/AreaForm'
+import { Route, Switch, useHistory } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Authentication from './components/Authentication';
+import About from './components/About';
+import Navigation from './components/Navigation';
+import Profile from './components/Profile';
+import HomePage from './components/HomePage';
+import Locations from './components/Locations';
+import AreaForm from './components/AreaForm';
 
-function App(){
-    const [areas, setAreas] = useState([])
-    const [user, setUser] = useState(null)
-    const history = useHistory()
+function App() {
+    const [areas, setAreas] = useState([]);
+    const [user, setUser] = useState(null);
+    const history = useHistory();
 
     useEffect(() => {
-        fetchUser()
-        fetchAreas()
-    }, [])
+        fetchUser();
+        fetchAreas();
+    }, []);
 
-    const fetchAreas = () => (
+    const fetchAreas = () => {
         fetch('/climbing_areas')
-        .then(resp => resp.json())
-        .then(setAreas)
-    )
+            .then(resp => {
+                if (resp.ok) {
+                    return resp.json();
+                } else {
+                    throw new Error('Failed to fetch climbing areas');
+                }
+            })
+            .then(data => setAreas(data))
+            .catch(error => console.error('Error fetching climbing areas:', error));
+    };
 
-    const fetchUser = () => (
+    const fetchUser = () => {
         fetch('/users')
-        .then(resp => {
-            if (resp.ok){
-                resp.json()
-                .then(data => {
-                    setUser(data)
-                })
-            } else {
-                setUser(null)
-            }
-        })
-    )
+            .then(resp => {
+                if (resp.ok) {
+                    return resp.json();
+                } else {
+                    throw new Error('Failed to fetch user data');
+                }
+            })
+            .then(data => setUser(data))
+            .catch(error => console.error('Error fetching user data:', error));
+    };
 
-    function addAreaToList(area, difficulty, address,clip_rating, number_of_reviews, need_own_gear, retail_shop, fitness_area, lead_climbing, bouldering, moon_board, kilter_board){
+    const addAreaToList = (areaData) => {
         fetch('/climbing_areas', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                area: area,
-                difficulty: difficulty,
-                address: address,
-                clip_rating : clip_rating,
-                number_of_reviews: number_of_reviews,
-                need_own_gear: need_own_gear,
-                retail_shop: retail_shop,
-                fitness_area: fitness_area,
-                lead_climbing: lead_climbing,
-                bouldering: bouldering,
-                moon_board: moon_board,
-                kilter_board: kilter_board
-            })
+            body: JSON.stringify(areaData)
         })
-     .then(resp => {
-        if (resp.ok){
-            resp.json()
-         .then(area => {
-                addArea(area)
-                history.push(`/area/${area.id}`)
+            .then(resp => {
+                if (resp.ok) {
+                    return resp.json();
+                } else {
+                    throw new Error('Failed to add climbing area');
+                }
             })
-        }
-     })
-    }
-
-    const addArea = (area) => setAreas(current => [...current, area])
-
-    const updateUser = (user) => setUser(user)
+            .then(area => {
+                setAreas(prevAreas => [...prevAreas, area]);
+                history.push(`/locations/${area.id}`);
+            })
+            .catch(error => console.error('Error adding climbing area:', error));
+    };
 
     return (
         <>
-        <Navigation updateUser = {updateUser} />
+            <Navigation updateUser={setUser} />
             <Switch>
-                <Route exact path = '/authentication'>
-                    <Authentication updateUser = {updateUser} />
+                <Route exact path="/authentication">
+                    <Authentication updateUser={setUser} />
                 </Route>
-                <Route exact path = '/about'>
+                <Route exact path="/about">
                     <About />
                 </Route>
-                <Route path = '/locations/:id'>
-                    <Locations addAreaToList = {addAreaToList} />
+                <Route path="/locations/:id">
+                    <Locations areas={areas} />
                 </Route>
-                <Route path = '/locations'>
-                    <AreaForm addArea = {addAreaToList} />
+                <Route path="/locations">
+                    <AreaForm addAreaToList={addAreaToList} />
                 </Route>
-                <Route exact path = '/' >
-                    <HomePage />
+                <Route exact path="/">
+                    <HomePage areas={areas} />
                 </Route>
-                <Route exact path = '/profile'>
-                    <Profile user = {user} />
+                <Route exact path="/profile">
+                    <Profile user={user} />
                 </Route>
             </Switch>
         </>
-    )
+    );
 }
 
-export default App
+export default App;
