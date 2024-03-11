@@ -41,7 +41,7 @@ api.add_resource(Users, "/signup")
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    user = User.query.filter_by(name = data['name']).first()
+    user = User.query.filter_by(email = data['email']).first()
     if user and user.authenticate(data['password']):
         session['user_id'] = user.id
         response = make_response(user.to_dict(), 200)
@@ -54,22 +54,57 @@ def logout():
 
 
 class Reviews(Resource):
-    pass
+    def get(self):
+        reviews = Review.query.all()
+        return make_response([review.to_dict() for review in reviews])
+
+    def post(self):
+        data = request.get_json()
+        new_review = Review(**data)
+        db.session.add(new_review)
+        db.session.commit()
+        return make_response(new_review.to_dict(), 201)
+
+    def delete(self):
+        review_id = request.args.get('id')
+        if not review_id:
+            abort(400, "Review ID not provided")
+        review = Review.query.get(review_id)
+        if not review:
+            abort(404, "Review not found")
+        db.session.delete(review)
+        db.session.commit()
+        return make_response({}, 204)
 
 api.add_resource(Review, "/reviews")
 
 class Climbing_Areas(Resource):
-    pass
+    def get(self):
+        climbing_areas = Climbing_Area.query.all()
+        return make_response([climbing_areas.to_dict() for climbing_area in climbing_areas])
+
+    def post(self):
+        pass
+
+    def delete(self):
+        pass
 
 api.add_resource(Climbing_Areas, "/climbing_areas")
 
 class Attributes(Resource):
-    pass
+    def get(self):
+        attributes = Attribute.query.all()
+        return make_response([attribute.to_dict() for attribute in attributes])
 
 api.add_resource(Attributes, "/attributes")
 
 class Locations(Resource):
-    pass
+    def get(self):
+        locations = Location.query.all()
+        return make_response([location.to_dict() for location in locations])
+
+    def post(self):
+        pass
 
 api.add_resource(Locations, "/locations")
 
