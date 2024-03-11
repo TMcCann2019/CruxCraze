@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function HomePage() {
     return (
-        <div className="home-container">
+        <div className="home-container" style={{backgroundImage: 'url("https://wallpapercave.com/wp/wp1933371.jpg")'}}>
             <div className="hero-section">
                 <h1>Discover Your Next Climbing Adventure</h1>
                 <p>Explore thousands of climbing areas around the world, share your climbing experiences, and connect with fellow climbers.</p>
