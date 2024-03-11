@@ -46,6 +46,8 @@ def login():
         session['user_id'] = user.id
         response = make_response(user.to_dict(), 200)
         return response
+    else:
+        abort(401, "Invalid email or password")
 
 @app.route('/logout', methods = ['DELETE'])
 def logout():
@@ -64,11 +66,21 @@ class Reviews(Resource):
         db.session.add(new_review)
         db.session.commit()
         return make_response(new_review.to_dict(), 201)
-
-    def delete(self):
+    
+    def patch(self):
         review_id = request.args.get('id')
         if not review_id:
             abort(400, "Review ID not provided")
+        review = Review.query.get(review_id)
+        if not review:
+            abort(404, "Review not found")
+        data = request.get_json()
+        for attr in data:
+            setattr(review, attr, data[attr])
+        db.session.commit()
+        return make_response(review.to_dict(), 200)
+
+    def delete(self, review_id):
         review = Review.query.get(review_id)
         if not review:
             abort(404, "Review not found")
@@ -76,20 +88,27 @@ class Reviews(Resource):
         db.session.commit()
         return make_response({}, 204)
 
-api.add_resource(Review, "/reviews")
+api.add_resource(Review, "/reviews", endpoint = "reviews")
+api.add_resource(Review, "/reviews/<int:review_id>", endpoint = "review")
 
 class Climbing_Areas(Resource):
     def get(self):
-        climbing_areas = Climbing_Area.query.all()
-        return make_response([climbing_areas.to_dict() for climbing_area in climbing_areas])
+        areas = Climbing_Area.query.all()
+        return make_response([areas.to_dict() for area in areas])
 
     def post(self):
         pass
 
-    def delete(self):
-        pass
+    def delete(self, area_id):
+        area = Climbing_Area.query.get(area_id)
+        if not area:
+            abort(404, "Area not found")
+        db.session.delete(area)
+        db.session.commit()
+        return make_response({}, 204)
 
-api.add_resource(Climbing_Areas, "/climbing_areas")
+api.add_resource(Climbing_Areas, "/climbing_areas", endpoint = "climbing_areas")
+api.add_resource(Climbing_Areas, "/climbing_areas/<int:area_id>", endpoint = "climbing_area")
 
 class Attributes(Resource):
     def get(self):
