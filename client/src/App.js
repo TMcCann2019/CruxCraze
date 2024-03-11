@@ -83,7 +83,7 @@ function App() {
                     <AreaForm addAreaToList={addAreaToList} />
                 </Route>
                 <Route exact path="/">
-                    <HomePage areas={areas} />
+                    <HomePage />
                 </Route>
                 <Route exact path="/profile">
                     <Profile user={user} />
