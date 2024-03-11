@@ -36,7 +36,7 @@ class Users(Resource):
         response = make_response(new_user.to_dict(), 201)
         return response
 
-api.add_resource(Users, "/signup")
+api.add_resource(Users, "/signup", '/users')
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -109,16 +109,7 @@ class Climbing_Areas(Resource):
         db.session.commit()
         return make_response(new_area.to_dict(), 201)
 
-    def delete(self, area_id):
-        area = Climbing_Area.query.get(area_id)
-        if not area:
-            abort(404, "Area not found")
-        db.session.delete(area)
-        db.session.commit()
-        return make_response({}, 204)
-
-api.add_resource(Climbing_Areas, "/climbing_areas", endpoint = "climbing_areas")
-api.add_resource(Climbing_Areas, "/climbing_areas/<int:area_id>", endpoint = "climbing_area")
+api.add_resource(Climbing_Areas, "/climbing_areas")
 
 class Locations(Resource):
     def get(self):
