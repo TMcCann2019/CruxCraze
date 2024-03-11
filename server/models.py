@@ -54,11 +54,11 @@ class Climbing_Area(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=True, nullable=False)
-    location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
+    location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
     difficulty = db.Column(db.String, nullable=False)
     clip_rating = db.Column(db.Float)
     number_of_reviews = db.Column(db.Integer)
-    attributes = db.Column(db.Object)
+    attributes = db.Column(db.String)
 
     serialize_rules = ('-attributes.climbing_area','-reviews.area')
 
@@ -94,5 +94,5 @@ class Location(db.Model, SerializerMixin):
     state = db.Column(db.String)
     address = db.Column(db.String, unique=True)
     postal_code = db.Column(db.String)
-    lattitude = db.Column(db.Float, unique=True)
+    latitude = db.Column(db.Float, unique=True)
     longitude = db.Column(db.Float, unique=True)
