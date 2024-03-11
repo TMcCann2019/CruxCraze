@@ -56,11 +56,18 @@ class Climbing_Area(db.Model, SerializerMixin):
     name = db.Column(db.String(255), unique=True, nullable=False)
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
     difficulty = db.Column(db.String, nullable=False)
+    address = db.Column(db.String, unique=True)
     clip_rating = db.Column(db.Float)
     number_of_reviews = db.Column(db.Integer)
-    attributes = db.Column(db.String)
+    need_own_gear = db.Column(db.Boolean)
+    retail_shop = db.Column(db.Boolean)
+    fitness_area = db.Column(db.Boolean)
+    lead_climbing = db.Column(db.Boolean)
+    bouldering = db.Column(db.Boolean)
+    moon_board = db.Column(db.Boolean)
+    kilter_board = db.Column(db.Boolean)
 
-    serialize_rules = ('-attributes.climbing_area','-reviews.area')
+    serialize_rules = ('-reviews.area',)
 
     @validates('name')
     def validate_name(self, key, name):
@@ -76,23 +83,12 @@ class Climbing_Area(db.Model, SerializerMixin):
             raise ValueError('Difficulty must be beginner, intermediate, or advanced')
         return difficulty
 
-class Attribute(db.Model, SerializerMixin):
-    __tablename__ = 'attributes'
-
-    id = db.Column(db.Integer, primary_key=True)
-    climbing_area_id = db.Column(db.Integer, db.ForeignKey('climbing_areas.id'))
-    attributes = db.Column(db.String)
-    climbing_area = db.relationship('Climbing_Area', backref='attributes', cascade = ('all,delete'))
-
-    serialize_rules = ('-climbing_area.attributes',)
-
 class Location(db.Model, SerializerMixin):
     __tablename__ = 'locations'
 
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String)
     state = db.Column(db.String)
-    address = db.Column(db.String, unique=True)
     postal_code = db.Column(db.String)
     latitude = db.Column(db.Float, unique=True)
     longitude = db.Column(db.Float, unique=True)

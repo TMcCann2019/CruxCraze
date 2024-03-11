@@ -62,7 +62,10 @@ class Reviews(Resource):
 
     def post(self):
         data = request.get_json()
-        new_review = Review(**data)
+        try:
+            new_review = Review(**data)
+        except:
+            abort(422, "Some of the values failed")
         db.session.add(new_review)
         db.session.commit()
         return make_response(new_review.to_dict(), 201)
@@ -97,7 +100,14 @@ class Climbing_Areas(Resource):
         return make_response([areas.to_dict() for area in areas])
 
     def post(self):
-        pass
+        data = request.get_json()
+        try:
+            new_area = Climbing_Area(**data)
+        except:
+            abort(422, "Some of the values failed")
+        db.session.add(new_area)
+        db.session.commit()
+        return make_response(new_area.to_dict(), 201)
 
     def delete(self, area_id):
         area = Climbing_Area.query.get(area_id)
@@ -110,20 +120,20 @@ class Climbing_Areas(Resource):
 api.add_resource(Climbing_Areas, "/climbing_areas", endpoint = "climbing_areas")
 api.add_resource(Climbing_Areas, "/climbing_areas/<int:area_id>", endpoint = "climbing_area")
 
-class Attributes(Resource):
-    def get(self):
-        attributes = Attribute.query.all()
-        return make_response([attribute.to_dict() for attribute in attributes])
-
-api.add_resource(Attributes, "/attributes")
-
 class Locations(Resource):
     def get(self):
         locations = Location.query.all()
         return make_response([location.to_dict() for location in locations])
 
     def post(self):
-        pass
+        data = request.get_json()
+        try:
+            new_location = Location(**data)
+        except:
+            abort(422, "Some of the values failed")
+        db.session.add(new_location)
+        db.session.commit()
+        return make_response(new_location.to_dict(), 201)
 
 api.add_resource(Locations, "/locations")
 
