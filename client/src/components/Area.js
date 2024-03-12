@@ -9,7 +9,7 @@ function Area({area}){
         <>
             <div className="area-container">
                 <h2>{area.name}</h2>
-                <p>{area.description}</p>
+                <p>{area.difficulty}</p>
                 <button onClick={() => history.push(`/locations/${area.id}`)}>View Details</button>
             </div>
             <div className = "review-container">
