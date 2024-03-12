@@ -1,5 +1,5 @@
 import { Route, Switch, useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext} from 'react';
 import Authentication from './components/Authentication';
 import About from './components/About';
 import Navigation from './components/Navigation';
@@ -7,10 +7,11 @@ import Profile from './components/Profile';
 import HomePage from './components/HomePage';
 import Locations from './components/Locations';
 import AreaForm from './components/AreaForm';
+import { UserContext } from './context/user';
 
 function App() {
     const [areas, setAreas] = useState([]);
-    const [user, setUser] = useState(null);
+    const {user, setUser} = useContext(UserContext)
     const history = useHistory();
 
     useEffect(() => {

@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom'
 import styled from "styled-components";
 import { useFormik } from "formik"
 import * as yup from "yup"
+import { UserContext } from '../context/user';
 
 function Authentication({updateUser}) {
     const [signUp, setSignUp] = useState(false)
@@ -49,7 +50,7 @@ function Authentication({updateUser}) {
         {formik.errors && Object.values(formik.errors).map((error) => <h2 style = {{color: 'red'}}>{error}</h2>)}
         <h2>Please Log in or Sign Up!</h2>
         <h2>{signUp?'Already a member?' : 'Not a member?'}</h2>
-        <button onClick={handleClick}>{signUp?'Log In!' : 'Register now!'}</button>
+        <button onClick={handleClick}>{signUp?'Log In!' : 'SignUp!'}</button>
         <Form onSubmit={formik.handleSubmit}>
             <label>
                 Name: 
@@ -60,12 +61,10 @@ function Authentication({updateUser}) {
                 <input type="password" name="password" value={formik.values.password} onChange={formik.handleChange} />
             </label>
             {signUp && (
-            <>
             <label>
                 Email: 
                 <input type="text" name="email" value={formik.values.email} onChange={formik.handleChange} />
             </label>
-            </>
             )}
             <input type = 'submit' value={signUp ? 'Sign Up!' : 'Log In!'} />
         </Form>

@@ -3,7 +3,14 @@ import App from "./src/App";
 import "./index.css";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import {UserProvider} from "./context/user"
 
 const container = document.getElementById("root");
 const root = createRoot(container);
-root.render(<BrowserRouter><App /></BrowserRouter>);
+root.render(
+    <BrowserRouter>
+        <UserProvider>
+            <App />
+        </UserProvider>
+    </BrowserRouter>
+);

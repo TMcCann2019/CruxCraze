@@ -1,6 +1,6 @@
+import { UserContext } from "../context/user"
 
-
-function Profile(){
+function Profile({user}){
 
 }
 
