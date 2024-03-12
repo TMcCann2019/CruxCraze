@@ -56,10 +56,28 @@ function NewReviewForm({review, handleSubmit, handleAddReview, reviewToEdit}){
                 <input type = "text" name = "comment" value = {formik.values.comment} onChange = {formik.handleChange} />
                 <label>Date</label>
                 <input type = "date" name = "date" value = {formik.values.date} onChange = {formik.handleChange} />
-                <button type = "submit">Submit</button>
+                <button type = "submit">{editForm ? 'Update' : 'Submit'}</button>
             </Form>
         </div>
     )
 }
 
 export default NewReviewForm
+
+const Form = styled.form`
+    display:flex;
+    flex-direction:column;
+    width: 400px;
+    margin:auto;
+    font-family:Arial;
+    font-size:30px;
+    input[type=submit]{
+      background-color:green;
+      color: white;
+      height:40px;
+      font-family:Arial;
+      font-size:30px;
+      margin-top:10px;
+      margin-bottom:10px;
+    }
+  `
