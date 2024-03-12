@@ -77,11 +77,11 @@ function App() {
                 <Route exact path="/about">
                     <About />
                 </Route>
-                <Route path="/locations/:id">
+                <Route path="/locations">
                     <Locations areas={areas} />
                 </Route>
-                <Route path="/locations">
-                    <AreaForm addAreaToList={addAreaToList} />
+                <Route path="/areaForm">
+                    <AreaForm addAreaToList={addAreaToList}/>
                 </Route>
                 <Route exact path="/">
                     <HomePage />
