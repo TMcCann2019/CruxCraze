@@ -16,7 +16,7 @@ function Locations({ areas }) {
             center: [-74.5, 40], // starting position [lng, lat]
             zoom: 9 // starting zoom
         });
-        setMap(mapInstance);
+        setMap(() => mapInstance);
 
         return () => mapInstance.remove();
     }, []);
@@ -32,7 +32,7 @@ function Locations({ areas }) {
             <div className="locations-list">
                 <h2>Locations</h2>
                 <ul>
-                    {areas.map(area => (
+                    {locations.map(area => (
                         <AreaContainer key={area.id} area={area} />
                     ))}
                 </ul>
