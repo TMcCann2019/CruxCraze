@@ -111,6 +111,15 @@ class Climbing_Areas(Resource):
 
 api.add_resource(Climbing_Areas, "/climbing_areas")
 
+class Climbing_Areas_By_Id(Resource):
+    def get(self, area_id):
+        area = Climbing_Area.query.filter(id == area_id).first()
+        if not area:
+            abort(404, "Area not found")
+        return make_response(area.to_dict(), 200)
+    
+api.add_resource(Climbing_Areas, "/climbing_areas/<int:id>")
+
 class Locations(Resource):
     def get(self):
         locations = Location.query.all()
