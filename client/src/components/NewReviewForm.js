@@ -7,11 +7,12 @@ import * as yup from "yup"
 function NewReviewForm({review, handleSubmit, handleAddReview, reviewToEdit}){
     const history = useHistory()
     const editForm = !!reviewToEdit
+    const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
 
     const formSchema = yup.object().shape({
         rating : editForm ? yup.integer() : yup.integer().required('Must give a rating'),
         comment: yup.string().required('Must have a comment'),
-        date : yup.DateTime()
+        date : yup.DateTime().required('Must provide a date')
     })
 
     const editValues = {
@@ -47,6 +48,23 @@ function NewReviewForm({review, handleSubmit, handleAddReview, reviewToEdit}){
         }
     })
 
+    const handleClear = () => {
+        formik.resetForm();
+    }
+
+    const handleConfirmation = () => {
+        setIsConfirmationOpen(true);
+    }
+
+    const handleConfirm = () => {
+        formik.handleSubmit();
+        setIsConfirmationOpen(false);
+    }
+
+    const handleCancel = () => {
+        setIsConfirmationOpen(false);
+    }
+
     return (
         <div className = 'App'>
             <Form onsubmit = {formik.handleSubmit}>
@@ -57,7 +75,18 @@ function NewReviewForm({review, handleSubmit, handleAddReview, reviewToEdit}){
                 <label>Date</label>
                 <input type = "date" name = "date" value = {formik.values.date} onChange = {formik.handleChange} />
                 <button type = "submit">{editForm ? 'Update' : 'Submit'}</button>
+                <button type= "button" onClick = {handleClear}>Clear</button>
+                {editForm && (
+                    <button type="button" onClick={handleConfirmation}>Submit</button>
+                )}
             </Form>
+            {isConfirmationOpen && (
+                <ConfirmationDialog>
+                    <p>Are you sure you want to submit the review?</p>
+                    <button onClick={handleConfirm}>Yes</button>
+                    <button onClick={handleCancel}>No</button>
+                </ConfirmationDialog>
+            )}
         </div>
     )
 }
@@ -81,3 +110,19 @@ const Form = styled.form`
       margin-bottom:10px;
     }
   `
+
+  const ConfirmationDialog = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  z-index: 9999;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  button {
+      margin: 5px;
+  }
+`
