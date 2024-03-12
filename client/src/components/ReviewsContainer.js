@@ -61,7 +61,7 @@ function ReviewsContainer() {
     return (
         <>
             {reviews.map((review) => (
-                <Review key={review.id} review={review} handleDelete={handleDelete} updateReview={updateReview} handleAddReview={handleAddReview} />
+                <Review key={review.id} review={review} handleDelete={handleDelete} updateReview={updateReview} handleAddReview={handleAddReview} reviewToEdit={reviewToEdit}/>
             ))}
         </>
     );
