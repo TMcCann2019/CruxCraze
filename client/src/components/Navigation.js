@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect, useContext} from 'react'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
@@ -6,6 +6,7 @@ import { UserContext } from '../context/user'
 
 function Navigation({updateUser}){
     const history = useHistory()
+    const {user, setUser} = useContext(UserContext)
 
     useEffect(() => {
         fetchUserData()

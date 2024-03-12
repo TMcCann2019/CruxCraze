@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {useHistory} from 'react-router-dom'
 import styled from "styled-components";
 import { useFormik } from "formik"
@@ -7,6 +7,7 @@ import { UserContext } from '../context/user';
 
 function Authentication({updateUser}) {
     const [signUp, setSignUp] = useState(false)
+    const {user, setUser} = useContext(UserContext)
     const history = useHistory()
 
     const handleClick = () => setSignUp((signUp) => !signUp)
