@@ -7,6 +7,7 @@ import Profile from './components/Profile';
 import HomePage from './components/HomePage';
 import Locations from './components/Locations';
 import AreaForm from './components/AreaForm';
+import ReviewsContainer from './components/ReviewsContainer';
 import { UserContext } from './context/user';
 
 function App() {
@@ -77,6 +78,9 @@ function App() {
                 <Route exact path="/about">
                     <About />
                 </Route>
+                <Route path="/locations/:id">
+                    <Locations areas={areas} />
+                </Route>
                 <Route path="/locations">
                     <Locations areas={areas} />
                 </Route>
@@ -85,6 +89,9 @@ function App() {
                 </Route>
                 <Route exact path="/">
                     <HomePage />
+                </Route>
+                <Route path="/reviews">
+                    <ReviewsContainer />
                 </Route>
                 <Route exact path="/profile">
                     <Profile user={user} />
