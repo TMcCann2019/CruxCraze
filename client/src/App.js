@@ -36,17 +36,18 @@ function App() {
     const fetchUser = () => (
         fetch('/authorized')
         .then(resp => {
-          if (resp.ok){
-            resp.json()
-            .then(data => {
-              setUser(data)
-            })
-          } else {
-            setUser(null)
-          }
+            if (resp.ok){
+                resp.json()
+                .then(data => {
+                    setUser(data)
+                })
+            } else {
+                setUser(null)
+            }
         })
-      )    
-
+    )    
+    console.log(user)
+    console.log(fetchUser())
     const addAreaToList = (areaData) => {
         fetch('/climbing_areas', {
             method: 'POST',
@@ -68,10 +69,12 @@ function App() {
             })
             .catch(error => console.error('Error adding climbing area:', error));
     };
+
+    const updateUser = (user) => setUser(user);
     
     return (
         <>
-            <Navigation updateUser={setUser} />
+            <Navigation updateUser={updateUser} />
             <Switch>
                 <Route exact path="/authentication">
                     <Authentication updateUser={setUser} />

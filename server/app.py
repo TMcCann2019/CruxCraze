@@ -20,9 +20,11 @@ def index(id=0):
 @app.route('/authorized')
 def authorized():
     user = User.query.filter_by(id = session.get('user_id')).first()
+    print(user)
     if not user:
         raise Unauthorized
     return make_response(user.to_dict(), 200)
+
 class Users(Resource):
     def post(self):
         data = request.get_json()
@@ -31,7 +33,7 @@ class Users(Resource):
                 name=data['name'],
                 email=data['email'],
                 password_hash=data['password'],
-                review_count = 0
+                review_count = User.review_count(),
             )
         except:
             abort(422, "Some of the values failed")
