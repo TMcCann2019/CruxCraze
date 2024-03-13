@@ -54,7 +54,6 @@ def logout():
     session['user_id'] = None
     return make_response({}, 204)
 
-
 class Reviews(Resource):
     def get(self):
         reviews = Review.query.all()
@@ -69,9 +68,11 @@ class Reviews(Resource):
         db.session.add(new_review)
         db.session.commit()
         return make_response(new_review.to_dict(), 201)
-    
-    def patch(self):
-        review_id = request.args.get('id')
+
+api.add_resource(Reviews, "/reviews")
+
+class Reviews_By_Id(Resource):
+    def patch(self, review_id):
         if not review_id:
             abort(400, "Review ID not provided")
         review = Review.query.get(review_id)
@@ -90,9 +91,8 @@ class Reviews(Resource):
         db.session.delete(review)
         db.session.commit()
         return make_response({}, 204)
-
-api.add_resource(Review, "/reviews", endpoint = "reviews")
-api.add_resource(Review, "/reviews/<int:review_id>", endpoint = "review")
+    
+api.add_resource(Reviews_By_Id, "/reviews/<int:review_id>")
 
 class Climbing_Areas(Resource):
     def get(self):
@@ -132,7 +132,7 @@ class Climbing_Areas_By_Id(Resource):
             abort(404, "Area not found")
         return make_response(area.to_dict(), 200)
     
-api.add_resource(Climbing_Areas, "/climbing_areas/<int:id>")
+api.add_resource(Climbing_Areas_By_Id, "/climbing_areas/<int:id>")
 
 class Locations(Resource):
     def get(self):
