@@ -14,7 +14,8 @@ function Authentication({updateUser}) {
         const formSchema = yup.object().shape({
             name: yup.string().required("Name is required"),
             email: signUp ? yup.string().required("Email is required") : null,
-            password: yup.string().required("Please enter a password")
+            password: yup.string().required("Please enter a password"),
+            review_count: 0
         })
     
     const formik = useFormik({
@@ -55,7 +56,7 @@ function Authentication({updateUser}) {
         <Form onSubmit={formik.handleSubmit}>
             <label>
                 Name: 
-                <input type="text" name="username" value={formik.values.username} onChange={formik.handleChange} />
+                <input type="text" name="name" value={formik.values.name} onChange={formik.handleChange} />
             </label>
             <label>
                 Password: 
@@ -83,7 +84,7 @@ margin:auto;
 font-family:Arial;
 font-size:30px;
 input[type=submit]{
-  background-color:white;
+  background-color:red;
   color: black;
   height:40px;
   font-family:Arial;
