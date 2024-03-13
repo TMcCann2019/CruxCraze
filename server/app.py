@@ -11,12 +11,18 @@ from models import *
 def index(id=0):
     return render_template("index.html")
 
-@app.before_request
-def check_auth():
-    open_access = ["signup", "login", "homepage", "authorized"]
-    if request.endpoint not in open_access and not session.get('user_id'):
+# @app.before_request
+# def check_auth():
+#     open_access = ["signup", "login", "homepage", "authorized"]
+#     if request.endpoint not in open_access and not session.get('user_id'):
+#         raise Unauthorized
+
+@app.route('/authorized')
+def authorized():
+    user = User.query.filter_by(id = session.get('user_id')).first()
+    if not user:
         raise Unauthorized
-    
+    return make_response(user.to_dict(), 200)
 class Users(Resource):
     def post(self):
         data = request.get_json()
@@ -24,7 +30,7 @@ class Users(Resource):
             new_user = User(
                 name=data['name'],
                 email=data['email'],
-                password=data['password'],
+                password_hash=data['password'],
                 review_count = 0
             )
         except:
@@ -38,14 +44,14 @@ class Users(Resource):
 
 api.add_resource(Users, "/signup")
 
-class User_By_Id(Resource):
-    def get(self, user_id):
-        user = User.query.filter(User.id == user_id).first()
-        if not user:
-            abort(404, "User not found")
-        return make_response(user.to_dict(), 200)
+# class User_By_Id(Resource):
+#     def get(self, user_id):
+#         user = User.query.filter(User.id == user_id).first()
+#         if not user:
+#             abort(404, "User not found")
+#         return make_response(user.to_dict(), 200)
     
-api.add_resource(User_By_Id, "/users")
+# api.add_resource(User_By_Id, "/users/<int: user_id>")
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -132,7 +138,7 @@ class Climbing_Areas(Resource):
         db.session.commit()
         return make_response(new_area.to_dict(), 201)
 
-api.add_resource(Climbing_Areas, "/climbing_areas")
+api.add_resource(Climbing_Areas, '/climbing_areas')
 
 class Climbing_Areas_By_Id(Resource):
     def get(self, area_id):

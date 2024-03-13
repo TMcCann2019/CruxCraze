@@ -1,13 +1,11 @@
-import React, {useState, useContext} from 'react'
+import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import styled from "styled-components";
 import { useFormik } from "formik"
 import * as yup from "yup"
-import { UserContext } from '../context/user';
 
 function Authentication({updateUser}) {
     const [signUp, setSignUp] = useState(false)
-    const {user, setUser} = useContext(UserContext)
     const history = useHistory()
 
     const handleClick = () => setSignUp((signUp) => !signUp)
@@ -32,7 +30,7 @@ function Authentication({updateUser}) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(values, null, 2)
+                body: JSON.stringify(values)
             })
             .then((resp) => {
                 if (resp.ok){
@@ -64,10 +62,12 @@ function Authentication({updateUser}) {
                 <input type="password" name="password" value={formik.values.password} onChange={formik.handleChange} />
             </label>
             {signUp && (
-            <label>
-                Email: 
-                <input type="text" name="email" value={formik.values.email} onChange={formik.handleChange} />
-            </label>
+            <>
+                <label>
+                    Email: 
+                    <input type="text" name="email" value={formik.values.email} onChange={formik.handleChange} />
+                </label>
+            </>
             )}
             <input type = 'submit' value={signUp ? 'Sign Up!' : 'Log In!'} />
         </Form>
