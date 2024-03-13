@@ -62,7 +62,7 @@ function App() {
             })
             .then(area => {
                 setAreas(prevAreas => [...prevAreas, area]);
-                history.push(`/locations/${area.id}`);
+                history.push(`/locations`);
             })
             .catch(error => console.error('Error adding climbing area:', error));
     };
