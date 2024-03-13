@@ -9,7 +9,7 @@ function Locations({ areas }) {
     const [locations, setLocations] = useState([]);
 
     useEffect(() => {
-        mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+        mapboxgl.accessToken = 'pk.eyJ1IjoidG1jY2FubjIwMjQiLCJhIjoiY2x0bmN2ZDExMDViNjJrbnZubGl3eWtuYyJ9.zHRAh7uDESTOlIruNg6o5Q';
         const mapInstance = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/streets-v11', // style URL

@@ -74,3 +74,21 @@ function Authentication({updateUser}) {
 }
 
 export default Authentication
+
+export const Form = styled.form`
+display:flex;
+flex-direction:column;
+width: 400px;
+margin:auto;
+font-family:Arial;
+font-size:30px;
+input[type=submit]{
+  background-color:white;
+  color: black;
+  height:40px;
+  font-family:Arial;
+  font-size:30px;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+`

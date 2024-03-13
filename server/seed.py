@@ -2,7 +2,6 @@ from app import app
 from models import *
 
 if __name__ == '__main__':
-    fake = Faker()
     with app.app_context():
         User.query.delete()
         Climbing_Area.query.delete()
@@ -34,7 +33,7 @@ if __name__ == '__main__':
         area2 = Climbing_Area(
             name = 'Gavity Valut Hoboken',
             location_id = 2,
-            difficulty = 'Beginner',
+            difficulty = 'beginner',
             address = '1423 Clinton Street',
             clip_rating = 0,
             number_of_reviews = 0,
@@ -52,7 +51,7 @@ if __name__ == '__main__':
         area3 = Climbing_Area(
             name = 'Gavity Valut Flemington',
             location_id = 3,
-            difficulty = 'Beginner',
+            difficulty = 'beginner',
             address = '17 Minneakoning Road',
             clip_rating = 0,
             number_of_reviews = 0,
@@ -70,7 +69,7 @@ if __name__ == '__main__':
         area4 = Climbing_Area(
             name = 'Gravity Valut Brick',
             location_id = 4,
-            difficulty = 'Beginner',
+            difficulty = 'beginner',
             address = '110 Brick Plaza',
             clip_rating = 0,
             number_of_reviews = 0,
@@ -88,7 +87,7 @@ if __name__ == '__main__':
         area5 = Climbing_Area(
             name = 'Gavity Valut Upper Saddle River',
             location_id = 5,
-            difficulty = 'Beginner',
+            difficulty = 'beginner',
             address = '107 Pleasant Avenue',
             clip_rating = 0,
             number_of_reviews = 0,
@@ -106,7 +105,7 @@ if __name__ == '__main__':
         area6 = Climbing_Area(
             name = 'Gavity Valut Middletown',
             location_id = 6,
-            difficulty = 'Beginner',
+            difficulty = 'beginner',
             address = '37 Kanes Lane',
             clip_rating = 0,
             number_of_reviews = 0,
@@ -124,7 +123,7 @@ if __name__ == '__main__':
         area7 = Climbing_Area(
             name = 'Gavity Valut Montclair',
             location_id = 7,
-            difficulty = 'Beginner',
+            difficulty = 'beginner',
             address = '8 Seymour Plaza',
             clip_rating = 0,
             number_of_reviews = 0,
@@ -142,7 +141,7 @@ if __name__ == '__main__':
         area8 = Climbing_Area(
             name = 'Gavity Valut Voorhees',
             location_id = 8,
-            difficulty = 'Beginner',
+            difficulty = 'beginner',
             address = '333 Preston Avenue',
             clip_rating = 0,
             number_of_reviews = 0,
@@ -160,7 +159,7 @@ if __name__ == '__main__':
         area9 = Climbing_Area(
             name = 'Goat Climbing',
             location_id = 9,
-            difficulty = 'Intermediate',
+            difficulty = 'intermediate',
             address = '77 River Street',
             clip_rating = 0,
             number_of_reviews = 0,
@@ -178,7 +177,7 @@ if __name__ == '__main__':
         area10 = Climbing_Area(
             name = 'The Gunks',
             location_id = 10,
-            difficulty = 'Intermediate',
+            difficulty = 'intermediate',
             address = '800 Clove Road',
             clip_rating = 0,
             number_of_reviews = 0,
@@ -196,7 +195,7 @@ if __name__ == '__main__':
         area11 = Climbing_Area(
             name = 'The Powerlinez',
             location_id = 11,
-            difficulty = 'Intermediate',
+            difficulty = 'intermediate',
             address = 'Torne Brook Road',
             clip_rating = 0,
             number_of_reviews = 0,
@@ -214,7 +213,7 @@ if __name__ == '__main__':
         area12 = Climbing_Area(
             name = 'Thatcher',
             location_id = 12,
-            difficulty = 'Intermediate',
+            difficulty = 'intermediate',
             address = '60-76 Hales Cave Road',
             clip_rating = 0,
             number_of_reviews = 0,

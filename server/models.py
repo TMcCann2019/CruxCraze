@@ -45,7 +45,6 @@ class Review(db.Model, SerializerMixin):
     comment = db.Column(db.String(255))
     date = db.Column(db.DateTime)
     area = db.relationship('Climbing_Area', backref='reviews', cascade = ('all,delete'))
-    user = db.relationship('User', backref='reviews', cascade = ('all,delete'))
 
     serialize_rules = ('-user.reviews',)
 

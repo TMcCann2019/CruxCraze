@@ -10,9 +10,9 @@ function NewReviewForm({review, handleSubmit, handleAddReview, reviewToEdit}){
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
 
     const formSchema = yup.object().shape({
-        rating : editForm ? yup.integer() : yup.integer().required('Must give a rating'),
+        rating : editForm ? yup.number() : yup.number().required('Must give a rating'),
         comment: yup.string().required('Must have a comment'),
-        date : yup.DateTime().required('Must provide a date')
+        date : yup.date().required('Must provide a date')
     })
 
     const editValues = {
