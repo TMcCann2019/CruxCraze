@@ -69,8 +69,6 @@ function AreaForm ({addAreaToList}) {
             <Form onSubmit = {formik.handleSubmit}>
                 <label>Name</label>
                 <input type = "text" name = "name" value = {formik.values.name} onChange = {formik.handleChange} />
-                <label>Location</label>
-                <input type = "text" name = "location" value = {formik.values.location} onChange = {formik.handleChange} />
                 <label>City</label>
                 <input type = "text" name = "location.city" value = {formik.values.location.city} onChange = {formik.handleChange} />
                 <label>State</label>
