@@ -44,14 +44,14 @@ class Users(Resource):
 
 api.add_resource(Users, "/signup")
 
-# class User_By_Id(Resource):
-#     def get(self, user_id):
-#         user = User.query.filter(User.id == user_id).first()
-#         if not user:
-#             abort(404, "User not found")
-#         return make_response(user.to_dict(), 200)
+class User_By_Id(Resource):
+    def get(self, user_id):
+        user = User.query.filter(User.id == user_id).first()
+        if not user:
+            abort(404, "User not found")
+        return make_response(user.to_dict(), 200)
     
-# api.add_resource(User_By_Id, "/users/<int: user_id>")
+api.add_resource(User_By_Id, "/users/<int:user_id>")
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -112,7 +112,7 @@ api.add_resource(Reviews_By_Id, "/reviews/<int:review_id>")
 class Climbing_Areas(Resource):
     def get(self):
         areas = Climbing_Area.query.all()
-        return make_response([areas.to_dict() for area in areas])
+        return make_response([areas.to_dict() for areas in areas])
 
     def post(self):
         data = request.get_json()

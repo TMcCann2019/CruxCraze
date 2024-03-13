@@ -33,18 +33,19 @@ function App() {
             .catch(error => console.error('Error fetching climbing areas:', error));
     };
 
-    const fetchUser = () => {
-        fetch('/users')
-            .then(resp => {
-                if (resp.ok) {
-                    return resp.json();
-                } else {
-                    throw new Error('Failed to fetch user data');
-                }
+    const fetchUser = () => (
+        fetch('/authorized')
+        .then(resp => {
+          if (resp.ok){
+            resp.json()
+            .then(data => {
+              setUser(data)
             })
-            .then(data => setUser(data))
-            .catch(error => console.error('Error fetching user data:', error));
-    };
+          } else {
+            setUser(null)
+          }
+        })
+      )    
 
     const addAreaToList = (areaData) => {
         fetch('/climbing_areas', {
@@ -67,7 +68,7 @@ function App() {
             })
             .catch(error => console.error('Error adding climbing area:', error));
     };
-    console.log(areas)
+    
     return (
         <>
             <Navigation updateUser={setUser} />

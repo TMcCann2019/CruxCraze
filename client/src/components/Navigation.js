@@ -2,7 +2,7 @@ import { useState, useEffect, useContext} from 'react'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
-import { UserContext } from '../context/user'
+import { UserContext } from '../context/user';
 
 function Navigation({updateUser}){
     const history = useHistory()
@@ -12,18 +12,19 @@ function Navigation({updateUser}){
         fetchUserData()
     }, [])
 
-    const fetchUserData = () => {
-        fetch('/users')
+    const fetchUserData = () => (
+        fetch('/authorized')
         .then(resp => {
             if (resp.ok){
-                resp.json().then(user => {
-                    updateUser(user)
+                resp.json()
+                .then(data => {
+                    setUser(data)
                 })
             } else {
-                updateUser(null)
+                setUser(null)
             }
         })
-    }
+    )   
 
     const handleLogout = () => {
         fetch('/logout', {
