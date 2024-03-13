@@ -22,7 +22,8 @@ function Authentication({updateUser}) {
         initialValues: {
             name: "",
             email: "",
-            password: ""
+            password: "",
+            review_count: 0
         },
         validationSchema: formSchema,
         onSubmit: (values) => {

@@ -31,7 +31,7 @@ function NewReviewForm({review, handleSubmit, handleAddReview, reviewToEdit}){
         initialValues: editForm ? editValues : addValues,
         validationSchema: formSchema,
         onSubmit: (values) => {
-            fetch(editForm ? `/reviews/${reviewToEdit.id}` : '/reviews', {
+            fetch(editForm ? `/reviews/${review.id}` : '/reviews', {
                 method: editForm ? "PATCH" : "POST",
                 headers: {
                     'Content-Type': 'application/json'

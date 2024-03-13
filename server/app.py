@@ -36,7 +36,16 @@ class Users(Resource):
         response = make_response(new_user.to_dict(), 201)
         return response
 
-api.add_resource(Users, "/signup", '/users')
+api.add_resource(Users, "/signup")
+
+class User_By_Id(Resource):
+    def get(self, user_id):
+        user = User.query.filter(User.id == user_id).first()
+        if not user:
+            abort(404, "User not found")
+        return make_response(user.to_dict(), 200)
+    
+api.add_resource(User_By_Id, "/users")
 
 @app.route('/login', methods=['POST'])
 def login():

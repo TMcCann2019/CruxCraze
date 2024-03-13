@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 
 function HomePage() {
     return (
-        <div className="home-container" style={{backgroundImage: 'url("https://wallpapercave.com/wp/wp1933371.jpg")'}}>
+        <div className="home-container" >
             <div className="hero-section">
+                <Image />
                 <h1>Discover Your Next Climbing Adventure</h1>
                 <p>Explore thousands of climbing areas around the world, share your climbing experiences, and connect with fellow climbers.</p>
                 <Link to="/locations" className="explore-button">Explore Climbing Areas</Link>
@@ -19,3 +20,7 @@ function HomePage() {
 }
 
 export default HomePage;
+
+const Image = styled.img.attrs(() => ({
+    src : "https://wallpapercave.com/wp/wp1933371.jpg",
+}))
