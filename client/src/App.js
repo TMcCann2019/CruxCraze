@@ -67,7 +67,7 @@ function App() {
             })
             .catch(error => console.error('Error adding climbing area:', error));
     };
-
+    console.log(areas)
     return (
         <>
             <Navigation updateUser={setUser} />
