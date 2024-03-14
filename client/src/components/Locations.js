@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
-import Area from './Area';
+import AreaContainer from './AreaContainer';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -33,7 +33,7 @@ function Locations({ areas }) {
                 <h2>Locations</h2>
                 <ul>
                     {locations.map(area => (
-                        <Area key={area.id} area={area} />
+                        <AreaContainer key={area.id} area={area} />
                     ))}
                 </ul>
             </div>
