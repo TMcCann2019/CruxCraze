@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import AreaContainer from './AreaContainer';
+import styled from'styled-components';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -28,18 +29,38 @@ function Locations({ areas }) {
     }, [map, areas]);
 
     return (
-        <div className="locations-container">
-            <div className="locations-list">
+        <LocationsContainer>
+            <LocationsList>
                 <h2>Locations</h2>
                 <ul>
                     {locations.map(area => (
                         <AreaContainer key={area.id} area={area} />
                     ))}
                 </ul>
-            </div>
-            <div id="map" className="map-container"></div>
-        </div>
+            </LocationsList>
+            <MapContainer id="map"></MapContainer>
+        </LocationsContainer>
     );
 }
 
 export default Locations;
+
+const LocationsContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-image: url('https://i.redd.it/ygeh5h7jofj71.png');
+    background-size: cover;
+    background-position: center;
+    color: white
+`;
+
+const LocationsList = styled.div`
+    flex: 1;
+    padding-right: 20px;
+`;
+
+const MapContainer = styled.div`
+    flex: 1;
+    height: 400px;
+`;
