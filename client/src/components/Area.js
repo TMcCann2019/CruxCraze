@@ -1,11 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useHistory, useParams} from 'react-router-dom'
 import ReviewsContainer from './ReviewsContainer'
 import styled from'styled-components'
+import NewReviewForm from './NewReviewForm'
 
 function Area({areas}){
     const history = useHistory()
     const {id} = useParams()
+    const [addingReview, setAddingReview] = useState(false)
 
     const area = areas.find(area => area.id === parseInt(id))
 
@@ -14,7 +16,7 @@ function Area({areas}){
     }
 
     const handleAddReview = () => {
-        history.push(`/reviews/${id}/add-review`)
+        setAddingReview(true)
     }
 
     return (
@@ -34,6 +36,7 @@ function Area({areas}){
                 <BackButton onClick={history.goBack}>Back</BackButton>
                 <AddReviewButton onClick={handleAddReview}>Add Review</AddReviewButton>
             </Container>
+            {addingReview && (<NewReviewForm />)}
             <ReviewsContainer />
         </>
     )

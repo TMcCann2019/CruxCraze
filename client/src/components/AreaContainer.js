@@ -8,7 +8,7 @@ function AreaContainer({ area }) {
     const handleViewDetails = () => {
         history.push(`/locations/${area.id}`);
     };
-    console.log(area)
+    
     return (
         <Container>
             <Title>{area.name}</Title>

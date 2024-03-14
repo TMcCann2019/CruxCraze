@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { useFormik } from "formik"
 import * as yup from "yup"
 
-function NewReviewForm({review, handleSubmit, handleAddReview, reviewToEdit}){
+function NewReviewForm({handleSubmit, handleAddReview, reviewToEdit}){
     const history = useHistory()
     const editForm = !!reviewToEdit
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
@@ -15,23 +15,13 @@ function NewReviewForm({review, handleSubmit, handleAddReview, reviewToEdit}){
         date : yup.date().required('Must provide a date')
     })
 
-    const editValues = {
-        rating: reviewToEdit.rating,
-        comment: reviewToEdit.comment,
-        date: reviewToEdit.date
-    }
-
-    const addValues = {
-        rating: '',
-        comment: '',
-        date: ''
-    }
+    const initialValues = editForm ? {...reviewToEdit} : {rating: '', comment: '', date: ''}
 
     const formik = useFormik({
-        initialValues: editForm ? editValues : addValues,
+        initialValues: initialValues,
         validationSchema: formSchema,
         onSubmit: (values) => {
-            fetch(editForm ? `/reviews/${review.id}` : '/reviews', {
+            fetch(editForm ? `/reviews/${reviewToEdit.id}` : '/reviews', {
                 method: editForm ? "PATCH" : "POST",
                 headers: {
                     'Content-Type': 'application/json'

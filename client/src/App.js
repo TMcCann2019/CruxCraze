@@ -10,6 +10,7 @@ import AreaForm from './components/AreaForm';
 import Area from './components/Area';
 import ReviewsContainer from './components/ReviewsContainer';
 import { UserContext } from './context/user';
+import NewReviewForm from './components/NewReviewForm';
 
 function App() {
     const [areas, setAreas] = useState([]);
@@ -94,6 +95,9 @@ function App() {
                 </Route>
                 <Route exact path="/">
                     <HomePage />
+                </Route>
+                <Route path='/reviews/:id/add-review'>
+                    <NewReviewForm />
                 </Route>
                 <Route path="/reviews">
                     <ReviewsContainer />

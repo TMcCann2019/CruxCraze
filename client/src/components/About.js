@@ -38,14 +38,15 @@ const Image = styled.img.attrs(() => ({
     src: "https://wallpapercave.com/wp/wp1933371.jpg",
 }))`
     width: 100%;
-    height: 100%;
+    height: 100vh;
     object-fit: cover;
     position: absolute;
     z-index: -1;
 `;
 
 const ContentContainer = styled.div`
-    background-color: rgba(255, 255, 0, 0.8); /* Yellowish background with opacity */
+    height: 100vh;
+    background-color: rgba(255, 255, 0, 0.8); 
     padding: 20px;
     border-radius: 10px;
 `;
