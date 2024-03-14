@@ -8,11 +8,12 @@ function AreaContainer({ area }) {
     const handleViewDetails = () => {
         history.push(`/locations/${area.id}`);
     };
-
+    console.log(area)
     return (
         <Container>
             <Title>{area.name}</Title>
             <p>{area.difficulty}</p>
+            <p>{area.address}</p>
             <DetailsButton onClick={handleViewDetails}>View Details</DetailsButton>
         </Container>
     );
@@ -22,10 +23,12 @@ export default AreaContainer;
 
 const Container = styled.div`
     background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    color: White;
     padding: 20px;
     margin-bottom: 20px;
-    background-image: url('https://gravityvault.com/img?f=_media/FLMG/Location_Pictures/GV_FLEMINGTON_NJ_17.jpg&w=350&h=250&r=fit')
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('https://gravityvault.com/img?f=_media/FLMG/Location_Pictures/GV_FLEMINGTON_NJ_17.jpg&w=350&h=250&r=fit') right;
+    background-size: cover;
 `;
 
 const Title = styled.h2`
@@ -33,7 +36,7 @@ const Title = styled.h2`
 `;
 
 const DetailsButton = styled.button`
-    background-color: red;
+    background-color: White;
     color: black;
     border: none;
     padding: 5px 10px;

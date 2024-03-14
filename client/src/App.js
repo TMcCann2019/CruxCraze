@@ -47,8 +47,8 @@ function App() {
             }
         })
     )    
-    console.log(user)
-    console.log(fetchUser())
+    // console.log(user)
+    // console.log(fetchUser())
     const addAreaToList = (areaData) => {
         fetch('/climbing_areas', {
             method: 'POST',
