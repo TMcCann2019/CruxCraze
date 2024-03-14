@@ -32,18 +32,24 @@ function AreaForm ({addAreaToList}) {
     const formik = useFormik({
         initialValues: {
             name: "",
-            location : "",
+            location : {
+                city: "",
+                state: "",
+                postal_code: "",
+                latitude: 0,
+                longitude: 0
+            },
             difficulty: "",
             address: "",
             clip_rating : 0,
             number_of_reviews: 0,
-            need_own_gear: "",
-            retail_shop: "",
-            fitness_area: "",
-            lead_climbing: "",
-            bouldering: "",
-            moon_board: "",
-            kilter_board: ""
+            need_own_gear: false,
+            retail_shop: false,
+            fitness_area: false,
+            lead_climbing: false,
+            bouldering: false,
+            moon_board: false,
+            kilter_board: false
         },
         validationSchema: formSchema,
         onSubmit: (values) => {
@@ -65,63 +71,97 @@ function AreaForm ({addAreaToList}) {
     })
 
     return (
-        <div className = 'AreaContainer'>
-            <Form onSubmit = {formik.handleSubmit}>
+        <BackgroundContainer>
+            <Form onSubmit={formik.handleSubmit}>
                 <label>Name</label>
-                <input type = "text" name = "name" value = {formik.values.name} onChange = {formik.handleChange} />
+                <input type="text" name="name" value={formik.values.name} onChange={formik.handleChange} />
                 <label>City</label>
-                <input type = "text" name = "location.city" value = {formik.values.location.city} onChange = {formik.handleChange} />
+                <input type="text" name="location.city" value={formik.values.location.city} onChange={formik.handleChange} />
                 <label>State</label>
-                <input type = "text" name = "location.state" value = {formik.values.location.state} onChange = {formik.handleChange} />
+                <input type="text" name="location.state" value={formik.values.location.state} onChange={formik.handleChange} />
                 <label>Postal Code</label>
-                <input type = "text" name = "location.postal_code" value = {formik.values.location.postal_code} onChange = {formik.handleChange} />
+                <input type="text" name="location.postal_code" value={formik.values.location.postal_code} onChange={formik.handleChange} />
                 <label>Latitude</label>
-                <input type = "number" name = "location.latitude" value = {formik.values.location.latitude} onChange = {formik.handleChange} />
+                <input type="number" name="location.latitude" value={formik.values.location.latitude} onChange={formik.handleChange} />
                 <label>Longitude</label>
-                <input type = "number" name = "location.longitude" value = {formik.values.location.longitude} onChange = {formik.handleChange} />
+                <input type="number" name="location.longitude" value={formik.values.location.longitude} onChange={formik.handleChange} />
                 <label>Difficulty</label>
-                <input type = "text" name = "difficulty" value = {formik.values.difficulty} onChange = {formik.handleChange} />
+                <input type="text" name="difficulty" value={formik.values.difficulty} onChange={formik.handleChange} />
                 <label>Address</label>
-                <input type = "text" name = "address" value = {formik.values.address} onChange = {formik.handleChange} />
+                <input type="text" name="address" value={formik.values.address} onChange={formik.handleChange} />
                 <label>Clip rating</label>
-                <input type = "number" name = "clip_rating" value = {formik.values.clip_rating} onChange = {formik.handleChange} />
+                <input type="number" name="clip_rating" value={formik.values.clip_rating} onChange={formik.handleChange} />
                 <label>Number of reviews</label>
-                <input type = "number" name = "number_of_reviews" value = {formik.values.number_of_reviews} onChange = {formik.handleChange} />
+                <input type="number" name="number_of_reviews" value={formik.values.number_of_reviews} onChange={formik.handleChange} />
                 <label>Need own gear?</label>
-                <input type="dropdown" name = "needOwnGear" value = {formik.values.need_own_gear} onChange = {formik.handleChange} />
+                <input type="checkbox" name="need_own_gear" checked={formik.values.need_own_gear} onChange={formik.handleChange} />
                 <label>Retail shop?</label>
-                <input type="dropdown" name = "retailShop" value = {formik.values.retail_shop} onChange = {formik.handleChange} />
+                <input type="checkbox" name="retail_shop" checked={formik.values.retail_shop} onChange={formik.handleChange} />
                 <label>Fitness area?</label>
-                <input type="dropdown" name = "fitnessArea" value = {formik.values.fitness_area} onChange = {formik.handleChange} />
+                <input type="checkbox" name="fitness_area" checked={formik.values.fitness_area} onChange={formik.handleChange} />
                 <label>Lead climbing?</label>
-                <input type="dropdown" name = "leadClimbing" value = {formik.values.lead_climbing} onChange = {formik.handleChange} />
+                <input type="checkbox" name="lead_climbing" checked={formik.values.lead_climbing} onChange={formik.handleChange} />
                 <label>Bouldering?</label>
-                <input type="dropdown" name = "bouldering" value = {formik.values.bouldering} onChange = {formik.handleChange} />
+                <input type="checkbox" name="bouldering" checked={formik.values.bouldering} onChange={formik.handleChange} />
                 <label>Moon board?</label>
-                <input type="dropdown" name = "moonBoard" value = {formik.values.moon_board} onChange = {formik.handleChange} />
+                <input type="checkbox" name="moon_board" checked={formik.values.moon_board} onChange={formik.handleChange} />
                 <label>Kilter board?</label>
-                <input type="dropdown" name = "kilterBoard" value = {formik.values.kilter_board} onChange = {formik.handleChange} />
+                <input type="checkbox" name="kilter_board" checked={formik.values.kilter_board} onChange={formik.handleChange} />
+                <button type="submit">Submit</button>
             </Form>
-        </div>
-    )
+        </BackgroundContainer>
+    );
 }
 
-export default AreaForm
+export default AreaForm;
+
+const BackgroundContainer = styled.div`
+    background-image: url('https://qph.cf2.quoracdn.net/main-qimg-05e85319e76439ed30f2b9da71344184-lq');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 10px;
+`;
 
 const Form = styled.form`
-    display:flex;
-    flex-direction:column;
+    display: flex;
+    flex-direction: column;
     width: 400px;
-    margin:auto;
-    font-family:Arial;
-    font-size:30px;
-    input[type=submit]{
-      background-color:blue;
-      color: white;
-      height:40px;
-      font-family:Arial;
-      font-size:30px;
-      margin-top:10px;
-      margin-bottom:10px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+
+    label {
+        margin-bottom: 5px;
+        font-weight: bold;
     }
-  `
+
+    input[type="text"],
+    input[type="number"],
+    input[type="checkbox"] {
+        margin-bottom: 10px;
+        padding: 5px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+    }
+
+    input[type="checkbox"] {
+        margin-left: 10px;
+    }
+
+    button[type="submit"] {
+        background-color: blue;
+        color: white;
+        height: 40px;
+        font-family: Arial;
+        font-size: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+`;

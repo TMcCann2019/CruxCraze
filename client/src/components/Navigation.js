@@ -39,7 +39,7 @@ function Navigation({updateUser}){
     }
 
     return (
-        <nav>
+        <Navbar>
             <ul>
                 <li>
                     <Link to="/">Home</Link>
@@ -60,8 +60,42 @@ function Navigation({updateUser}){
                     <button onClick={handleLogout}>Logout</button>
                 </li>
             </ul>
-        </nav>
+        </Navbar>
     );
 }
 
 export default Navigation
+
+const Navbar = styled.nav`
+    position: relative;
+    background-image: url('https://media.tacdn.com/media/attractions-splice-spp-674x446/06/70/33/fd.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: white;
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    li {
+        margin: 0 10px;
+    }
+
+    a {
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    button {
+        color: Black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+`;
