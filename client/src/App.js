@@ -7,6 +7,7 @@ import Profile from './components/Profile';
 import HomePage from './components/HomePage';
 import Locations from './components/Locations';
 import AreaForm from './components/AreaForm';
+import Area from './components/Area';
 import ReviewsContainer from './components/ReviewsContainer';
 import { UserContext } from './context/user';
 
@@ -83,7 +84,7 @@ function App() {
                     <About />
                 </Route>
                 <Route path="/locations/:id">
-                    <Locations areas={areas} />
+                    <Area areas={areas} />
                 </Route>
                 <Route path="/locations">
                     <Locations areas={areas} />
