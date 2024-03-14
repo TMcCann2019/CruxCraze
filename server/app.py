@@ -119,26 +119,39 @@ class Climbing_Areas(Resource):
     def post(self):
         data = request.get_json()
         try:
+            location = Location.query.filter_by(id=data['location_id']).first()
+            if not location:
+                location = Location(
+                    city=data['city'],
+                    state=data['state'],
+                    postal_code=data['postal_code'],
+                    latitude=data['latitude'],
+                    longitude=data['longitude']
+                )
+                db.session.add(location)
+                db.session.commit()
+
             new_area = Climbing_Area(
-                name = data['name'],
-                location_id = data['location_id'],
-                difficulty = data['difficulty'],
-                address = data['address'],
-                clip_rating = data['clip_rating'],
-                number_of_reviews = data['number_of_reviews'],
-                need_own_gear = eval(data['need_own_gear']),
-                retail_shop = eval(data['retail_shop']),
-                fitness_area = eval(data['fitness_area']),
-                lead_climbing = eval(data['lead_climbing']),
-                bouldering = eval(data['bouldering']),
-                moon_board = eval(data['moon_board']),
-                kilter_board = eval(data['kilter_board'])
+                name=data['name'],
+                location_id=location.id,
+                difficulty=data['difficulty'],
+                address=data['address'],
+                clip_rating=data['clip_rating'],
+                number_of_reviews=data['number_of_reviews'],
+                need_own_gear=eval(data['need_own_gear']),
+                retail_shop=eval(data['retail_shop']),
+                fitness_area=eval(data['fitness_area']),
+                lead_climbing=eval(data['lead_climbing']),
+                bouldering=eval(data['bouldering']),
+                moon_board=eval(data['moon_board']),
+                kilter_board=eval(data['kilter_board'])
             )
-        except:
-            abort(422, "Some of the values failed")
-        db.session.add(new_area)
-        db.session.commit()
-        return make_response(new_area.to_dict(), 201)
+            db.session.add(new_area)
+            db.session.commit()
+            return make_response(new_area.to_dict(), 201)
+        except Exception as e:
+            db.session.rollback()
+            abort(422, str(e))
 
 api.add_resource(Climbing_Areas, '/climbing_areas')
 
