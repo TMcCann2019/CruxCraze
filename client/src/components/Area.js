@@ -38,38 +38,38 @@ function Area({areas}){
                     </Attribute>
                     <Attribute>
                         <AttributeLabel>Need your own gear?</AttributeLabel>
-                        <AttributeValue>{area.need_own_gear ? "True" : "False"}</AttributeValue>
+                        <AttributeValue>{area.need_own_gear ? "Yes" : "No"}</AttributeValue>
                     </Attribute>
                     <Attribute>
                         <AttributeLabel>Has a retail shop?</AttributeLabel>
-                        <AttributeValue>{area.retail_shop ? "True" : "False"}</AttributeValue>
+                        <AttributeValue>{area.retail_shop ? "Yes" : "No"}</AttributeValue>
                     </Attribute>
                     <Attribute>
                         <AttributeLabel>Is there a fitness area?</AttributeLabel>
-                        <AttributeValue>{area.fitness_area ? "True" : "False"}</AttributeValue>
+                        <AttributeValue>{area.fitness_area ? "Yes" : "No"}</AttributeValue>
                     </Attribute>
                     <Attribute>
                         <AttributeLabel>Can you lead climb here?</AttributeLabel>
-                        <AttributeValue>{area.lead_climbing ? "True" : "False"}</AttributeValue>
+                        <AttributeValue>{area.lead_climbing ? "Yes" : "No"}</AttributeValue>
                     </Attribute>
                     <Attribute>
                         <AttributeLabel>Is there bouldering available?</AttributeLabel>
-                        <AttributeValue>{area.bouldering ? "True" : "False"}</AttributeValue>
+                        <AttributeValue>{area.bouldering ? "Yes" : "No"}</AttributeValue>
                     </Attribute>
                     <Attribute>
                         <AttributeLabel>Is there a moon board/tension board?</AttributeLabel>
-                        <AttributeValue>{area.moon_board ? "True" : "False"}</AttributeValue>
+                        <AttributeValue>{area.moon_board ? "Yes" : "No"}</AttributeValue>
                     </Attribute>
                     <Attribute>
                         <AttributeLabel>Is there a kilter board?</AttributeLabel>
-                        <AttributeValue>{area.kilter_board ? "True" : "False"}</AttributeValue>
+                        <AttributeValue>{area.kilter_board ? "Yes" : "No"}</AttributeValue>
                     </Attribute>
                 </AttributesContainer>
                 <BackButton onClick={history.goBack}>Back</BackButton>
                 <AddReviewButton onClick={handleAddReview}>Add Review</AddReviewButton>
             </Container>
             {addingReview && <NewReviewForm />}
-            <ReviewsContainer />
+            {!addingReview && <ReviewsContainer />}
         </>
     );
 }
