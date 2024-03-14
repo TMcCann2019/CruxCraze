@@ -44,8 +44,8 @@ function ReviewsContainer() {
             },
             body: JSON.stringify({
                 review: review,
-                user: user.id,
-                area: area.id,
+                user_id: user.id,
+                climbing_area_id: area.id,
                 rating: rating,
                 comment: comment,
                 date: date
