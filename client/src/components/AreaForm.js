@@ -53,8 +53,8 @@ function AreaForm ({addAreaToList}) {
         },
         validationSchema: formSchema,
         onSubmit: (values) => {
-            console.log("Submitting form with value:", values)
-            fetch('/climbing_areas', {
+            console.log("Submitting form with values:", values)
+            fetch('/create_climbing_area', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
