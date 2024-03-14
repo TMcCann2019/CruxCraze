@@ -23,26 +23,58 @@ function Area({areas}){
         <>
             <Container>
                 <h2>Area</h2>
-                <p>{area.name}</p>
-                <p>Difficulty: {area.difficulty}</p>
-                <p>Address: {area.address}</p>
-                <p>Need your own gear? {area.need_own_gear}</p>
-                <p>Has a retail shop? {area.retail_shop}</p>
-                <p>Is there a fitness area? {area.fitness_area}</p>
-                <p>Can you lead climb here? {area.lead_climbing}</p>
-                <p>Is there bouldering available? {area.bouldering}</p>
-                <p>Is there a moon board/tension board? {area.moon_board}</p>
-                <p>Is there a kilter board? {area.kilter_board}</p>
+                <AttributesContainer>
+                    <Attribute>
+                        <AttributeLabel>Name:</AttributeLabel>
+                        <AttributeValue>{area.name}</AttributeValue>
+                    </Attribute>
+                    <Attribute>
+                        <AttributeLabel>Difficulty:</AttributeLabel>
+                        <AttributeValue>{area.difficulty}</AttributeValue>
+                    </Attribute>
+                    <Attribute>
+                        <AttributeLabel>Address:</AttributeLabel>
+                        <AttributeValue>{area.address}</AttributeValue>
+                    </Attribute>
+                    <Attribute>
+                        <AttributeLabel>Need your own gear?</AttributeLabel>
+                        <AttributeValue>{area.need_own_gear ? "True" : "False"}</AttributeValue>
+                    </Attribute>
+                    <Attribute>
+                        <AttributeLabel>Has a retail shop?</AttributeLabel>
+                        <AttributeValue>{area.retail_shop ? "True" : "False"}</AttributeValue>
+                    </Attribute>
+                    <Attribute>
+                        <AttributeLabel>Is there a fitness area?</AttributeLabel>
+                        <AttributeValue>{area.fitness_area ? "True" : "False"}</AttributeValue>
+                    </Attribute>
+                    <Attribute>
+                        <AttributeLabel>Can you lead climb here?</AttributeLabel>
+                        <AttributeValue>{area.lead_climbing ? "True" : "False"}</AttributeValue>
+                    </Attribute>
+                    <Attribute>
+                        <AttributeLabel>Is there bouldering available?</AttributeLabel>
+                        <AttributeValue>{area.bouldering ? "True" : "False"}</AttributeValue>
+                    </Attribute>
+                    <Attribute>
+                        <AttributeLabel>Is there a moon board/tension board?</AttributeLabel>
+                        <AttributeValue>{area.moon_board ? "True" : "False"}</AttributeValue>
+                    </Attribute>
+                    <Attribute>
+                        <AttributeLabel>Is there a kilter board?</AttributeLabel>
+                        <AttributeValue>{area.kilter_board ? "True" : "False"}</AttributeValue>
+                    </Attribute>
+                </AttributesContainer>
                 <BackButton onClick={history.goBack}>Back</BackButton>
                 <AddReviewButton onClick={handleAddReview}>Add Review</AddReviewButton>
             </Container>
-            {addingReview && (<NewReviewForm />)}
+            {addingReview && <NewReviewForm />}
             <ReviewsContainer />
         </>
-    )
+    );
 }
 
-export default Area
+export default Area;
 
 const Container = styled.div`
     height: 100vh;
@@ -51,13 +83,18 @@ const Container = styled.div`
     color: white;
     padding: 20px;
     margin-bottom: 20px;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                url('https://gravityvault.com/img?f=_media/FLMG/Location_Pictures/GV_FLEMINGTON_NJ_17.jpg&w=350&h=250&r=fit') right;
+    background: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+        ),
+        url('https://gravityvault.com/img?f=_media/FLMG/Location_Pictures/GV_FLEMINGTON_NJ_17.jpg&w=350&h=250&r=fit')
+            right;
     background-size: cover;
 `;
 
 const AddReviewButton = styled.button`
-    background-color: #007bff; 
+    background-color: #007bff;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -68,7 +105,7 @@ const AddReviewButton = styled.button`
     transition: background-color 0.3s ease;
 
     &:hover {
-        background-color: #0056b3; 
+        background-color: #0056b3;
     }
 `;
 
@@ -77,4 +114,24 @@ const BackButton = styled(AddReviewButton)`
     &:hover {
         background-color: #5a6268;
     }
+`;
+
+const AttributesContainer = styled.div`
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+`;
+
+const Attribute = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+const AttributeLabel = styled.span`
+    font-weight: bold;
+    color: #f8f8f8; /* Adjust the color as needed */
+`;
+
+const AttributeValue = styled.span`
+    color: #d3d3d3; /* Adjust the color as needed */
 `;
