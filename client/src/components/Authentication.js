@@ -10,8 +10,8 @@ function Authentication({updateUser}) {
 
     const handleClick = () => setSignUp((signUp) => !signUp)
         const formSchema = yup.object().shape({
-            name: yup.string().required("Name is required"),
-            email: signUp ? yup.string().required("Email is required") : null,
+            name: signUp ? yup.string().required("Name is required") : null,
+            email: yup.string().required("Email is required"),
             password: yup.string().required("Please enter a password"),
             review_count: 0
         })
@@ -54,8 +54,8 @@ function Authentication({updateUser}) {
         <button onClick={handleClick}>{signUp?'Log In!' : 'SignUp!'}</button>
         <Form onSubmit={formik.handleSubmit}>
             <label>
-                Name: 
-                <input type="text" name="name" value={formik.values.name} onChange={formik.handleChange} />
+                Email: 
+                <input type="text" name="email" value={formik.values.email} onChange={formik.handleChange} />
             </label>
             <label>
                 Password: 
@@ -64,8 +64,8 @@ function Authentication({updateUser}) {
             {signUp && (
             <>
                 <label>
-                    Email: 
-                    <input type="text" name="email" value={formik.values.email} onChange={formik.handleChange} />
+                    Name: 
+                    <input type="text" name="name" value={formik.values.name} onChange={formik.handleChange} />
                 </label>
             </>
             )}

@@ -84,7 +84,7 @@ function App() {
                     <About />
                 </Route>
                 <Route path="/locations/:id">
-                    <Area areas={areas} />
+                    <Area areas={areas} user={user} />
                 </Route>
                 <Route path="/locations">
                     <Locations areas={areas} />

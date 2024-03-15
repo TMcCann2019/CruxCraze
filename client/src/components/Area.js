@@ -4,10 +4,11 @@ import ReviewsContainer from './ReviewsContainer'
 import styled from'styled-components'
 import NewReviewForm from './NewReviewForm'
 
-function Area({areas}){
+function Area({areas, user}){
     const history = useHistory()
     const {id} = useParams()
     const [addingReview, setAddingReview] = useState(false)
+    const [reviews, setReviews] = useState([])
 
     const area = areas.find(area => area.id === parseInt(id))
 
@@ -15,8 +16,27 @@ function Area({areas}){
         return <div>Area not found</div>
     }
 
-    const handleAddReview = () => {
-        setAddingReview(true)
+    function handleAddReview(review, rating, comment) {
+        const date = new Date().toISOString()
+        fetch('/reviews', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                review: review,
+                user_id: user.id,
+                climbing_area_id: area.id,
+                rating: rating,
+                comment: comment,
+                date: date
+            })
+        }).then(resp => {
+            if (resp.ok) {
+                setReviews([...reviews, {review, rating, comment, date}]);
+                history.push(`/locations/${area.id}`);
+            }
+        }).catch(error => console.error('Error adding review:', error));
     }
 
     return (
@@ -66,10 +86,10 @@ function Area({areas}){
                     </Attribute>
                 </AttributesContainer>
                 <BackButton onClick={history.goBack}>Back</BackButton>
-                <AddReviewButton onClick={handleAddReview}>Add Review</AddReviewButton>
+                <AddReviewButton onClick={() => setAddingReview(true)}>Add Review</AddReviewButton>
             </Container>
-            {addingReview && <NewReviewForm />}
-            {!addingReview && <ReviewsContainer />}
+            {addingReview && <NewReviewForm onAddReview={handleAddReview} />}
+            {!addingReview && <ReviewsContainer reviews={reviews} />}
         </>
     );
 }
