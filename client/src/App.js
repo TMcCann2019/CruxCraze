@@ -67,7 +67,7 @@ function App() {
             })
             .then(area => {
                 console.log('New Area:', setAreas)
-                setAreas(prevAreas => [...prevAreas, area]);
+                setAreas(areas => [...areas, area]);
                 history.push(`/locations`);
             })
             .catch(error => console.error('Error adding climbing area:', error));

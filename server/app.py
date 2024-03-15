@@ -148,6 +148,7 @@ api.add_resource(Climbing_Areas, '/climbing_areas')
 def create_climbing_area():
     if request.method == 'POST':
         data = request.get_json()
+        print(data)
         latitude = data['location']['latitude']
         location = Location.query.filter_by(latitude = latitude).first()
         if not location:
