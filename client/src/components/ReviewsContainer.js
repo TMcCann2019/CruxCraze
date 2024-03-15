@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Review from './Review';
 
 function ReviewsContainer() {
@@ -8,8 +8,8 @@ function ReviewsContainer() {
     const history = useHistory();
 
     const deleteReview = (deletedReview) => setReviews(reviews => reviews.filter((review) => review.id !== deletedReview.id));
-    const updateReview = (review) => {
-        setReviewToEdit(review);
+    const updateReview = (reviewToEdit) => {
+        setReviewToEdit(reviewToEdit);
         history.push('/reviews');
     };
 

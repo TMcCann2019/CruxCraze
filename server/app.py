@@ -1,6 +1,7 @@
 from flask import abort, make_response, request, session, render_template
 from flask_restful import Resource
 from werkzeug.exceptions import NotFound, Unauthorized
+from datetime import datetime
 
 from config import app, db, api
 
@@ -78,13 +79,15 @@ class Reviews(Resource):
 
     def post(self):
         data = request.get_json()
+        date_str = data['date']
+        date_obj = datetime.strptime(date_str, '%Y-%m-%d')
         try:
             new_review = Review(
                 user_id = session.get('user_id'),
                 climbing_area_id = data['climbing_area_id'],
                 rating = data['rating'],
                 comment = data['comment'],
-                date = data['date']
+                date = date_obj
             )
         except:
             abort(422, "Some of the values failed")

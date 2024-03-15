@@ -1,75 +1,87 @@
-import React, {useState} from 'react'
-import styled from 'styled-components'
-import { useHistory } from 'react-router-dom'
-import { useFormik } from "formik"
-import * as yup from "yup"
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
-function NewReviewForm({handleSubmit, handleAddReview, editReview}){
-    const history = useHistory()
-    const editForm = !!editReview
-    const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
+function NewReviewForm({ review, handleSubmit, onAddReview, editReview }) {
+    const history = useHistory();
+    const editForm = !!editReview;
+    const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
     const formSchema = yup.object().shape({
-        rating : editForm ? yup.number() : yup.number().required('Must give a rating'),
+        rating: editForm ? yup.number() : yup.number().required('Must give a rating'),
         comment: yup.string().required('Must have a comment'),
-        date : yup.date().required('Must provide a date')
-    })
+        date: yup.date().required('Must provide a date'),
+    });
 
-    const initialValues = editForm ? {...editReview} : {rating: '', comment: '', date: ''}
+    const initialValues = editForm ? editReview : { rating: '', comment: '', date: '' };
 
     const formik = useFormik({
         initialValues: initialValues,
         validationSchema: formSchema,
         onSubmit: (values) => {
-            console.log("Submitting form with values:", values)
-            fetch(editForm ? `/reviews/${editReview.id}` : '/reviews', {
-                method: editForm ? "PATCH" : "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(values)
-            }).then((resp) => {
-                if (resp.ok){
-                    resp.json().then(review => {
-                        editForm ? handleSubmit(review) : handleAddReview(review)
-                        history.push('/')
-                    })
+            if (editForm) {
+                handleConfirmation();
+            } else {
+                submitForm(values);
+            }
+        },
+    });
+
+    const submitForm = (values) => {
+        console.log('submitting values from form', values)
+        fetch(editForm ? `/reviews/${review.id}` : '/reviews', {
+            method: editForm ? 'PATCH' : 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values),
+        })
+            .then((resp) => {
+                if (resp.ok) {
+                    resp.json().then((review) => {
+                        editForm ? handleSubmit(review) : onAddReview(review);
+                        history.push('/');
+                    });
                 }
             })
-        }
-    })
+            .catch((error) => {
+                console.error('Error submitting form:', error);
+            });
+    };
 
     const handleClear = () => {
         formik.resetForm();
-    }
+    };
 
     const handleConfirmation = () => {
         setIsConfirmationOpen(true);
-    }
+    };
 
     const handleConfirm = () => {
-        formik.handleSubmit();
+        submitForm(formik.values);
         setIsConfirmationOpen(false);
-    }
+    };
 
     const handleCancel = () => {
         setIsConfirmationOpen(false);
-    }
+    };
 
     return (
-        <div className = 'App'>
-            <Form onSubmit = {formik.handleSubmit}>
+        <div className="App">
+            <Form onSubmit={formik.handleSubmit}>
                 <label>Rating</label>
-                <input type = "number" name = "rating" value = {formik.values.rating} onChange = {formik.handleChange} />
+                <input type="number" name="rating" value={formik.values.rating} onChange={formik.handleChange} />
                 <label>Comment</label>
-                <input type = "text" name = "comment" value = {formik.values.comment} onChange = {formik.handleChange} />
+                <input type="text" name="comment" value={formik.values.comment} onChange={formik.handleChange} />
                 <label>Date</label>
-                <input type = "date" name = "date" value = {formik.values.date} onChange = {formik.handleChange} />
-                <button type = "submit">{editForm ? 'Update' : 'Submit'}</button>
-                <button type= "button" onClick = {handleClear}>Clear</button>
-                {editForm && (
-                    <button type="button" onClick={handleConfirmation}>Submit</button>
-                )}
+                <input type="date" name="date" value={formik.values.date} onChange={formik.handleChange} />
+                <button type="submit">{editForm ? 'Update' : 'Submit'}</button>
+                <button type="button" onClick={handleClear}>
+                    Clear
+                </button>
+                {editForm && <button type="button" onClick={handleConfirmation}>Confirm</button>}
             </Form>
             {isConfirmationOpen && (
                 <ConfirmationDialog>
@@ -79,10 +91,10 @@ function NewReviewForm({handleSubmit, handleAddReview, editReview}){
                 </ConfirmationDialog>
             )}
         </div>
-    )
+    );
 }
 
-export default NewReviewForm
+export default NewReviewForm;
 
 const Form = styled.form`
     display:flex;

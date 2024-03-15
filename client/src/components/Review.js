@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import NewReviewForm from './NewReviewForm';
 
-function Review({ review, handleDelete, updateReview, handleAddReview, reviewToEdit }) {
+function Review({ review, handleDelete, updateReview, editReview }) {
     const history = useHistory();
     const [isEditing, setIsEditing] = useState(false);
 
@@ -25,14 +25,13 @@ function Review({ review, handleDelete, updateReview, handleAddReview, reviewToE
                 <NewReviewForm
                     review={review}
                     handleSubmit={handleUpdateReview}
-                    reviewToEdit={reviewToEdit}
-                    handleAddReview={handleAddReview}
+                    editReview={editReview}
                     buttonText="Update"
                 />
             ) : (
                 <>
                     <h3>{review.title}</h3>
-                    <p>{review.content}</p>
+                    <p>{review.comment}</p>
                     <p>Rating: {review.rating}</p>
                     <p>Date: {review.date}</p>
                     <button onClick={handleEdit}>Edit</button>

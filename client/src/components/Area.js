@@ -17,8 +17,7 @@ function Area({areas, user}){
         return <div>Area not found</div>
     }
     console.log(areaId)
-    function handleAddReview(review, rating, comment) {
-        const date = new Date().toISOString()
+    function handleAddReview(review, rating, comment, date) {
         console.log(date)
         console.log(review)
         console.log(rating)
