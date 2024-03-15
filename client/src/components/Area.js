@@ -11,13 +11,18 @@ function Area({areas, user}){
     const [reviews, setReviews] = useState([])
 
     const area = areas.find(area => area.id === parseInt(id))
+    const areaId = area.id
 
     if (!area){
         return <div>Area not found</div>
     }
-
+    console.log(areaId)
     function handleAddReview(review, rating, comment) {
         const date = new Date().toISOString()
+        console.log(date)
+        console.log(review)
+        console.log(rating)
+        console.log(comment)
         fetch('/reviews', {
             method: 'POST',
             headers: {
@@ -25,8 +30,7 @@ function Area({areas, user}){
             },
             body: JSON.stringify({
                 review: review,
-                user_id: user.id,
-                climbing_area_id: area.id,
+                climbing_area_id: areaId,
                 rating: rating,
                 comment: comment,
                 date: date

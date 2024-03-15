@@ -79,7 +79,13 @@ class Reviews(Resource):
     def post(self):
         data = request.get_json()
         try:
-            new_review = Review(**data)
+            new_review = Review(
+                user_id = session.get('user_id'),
+                climbing_area_id = data['climbing_area_id'],
+                rating = data['rating'],
+                comment = data['comment'],
+                date = data['date']
+            )
         except:
             abort(422, "Some of the values failed")
         db.session.add(new_review)

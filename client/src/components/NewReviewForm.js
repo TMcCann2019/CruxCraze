@@ -4,9 +4,9 @@ import { useHistory } from 'react-router-dom'
 import { useFormik } from "formik"
 import * as yup from "yup"
 
-function NewReviewForm({handleSubmit, handleAddReview, reviewToEdit}){
+function NewReviewForm({handleSubmit, handleAddReview, editReview}){
     const history = useHistory()
-    const editForm = !!reviewToEdit
+    const editForm = !!editReview
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
 
     const formSchema = yup.object().shape({
@@ -15,13 +15,14 @@ function NewReviewForm({handleSubmit, handleAddReview, reviewToEdit}){
         date : yup.date().required('Must provide a date')
     })
 
-    const initialValues = editForm ? {...reviewToEdit} : {rating: '', comment: '', date: ''}
+    const initialValues = editForm ? {...editReview} : {rating: '', comment: '', date: ''}
 
     const formik = useFormik({
         initialValues: initialValues,
         validationSchema: formSchema,
         onSubmit: (values) => {
-            fetch(editForm ? `/reviews/${reviewToEdit.id}` : '/reviews', {
+            console.log("Submitting form with values:", values)
+            fetch(editForm ? `/reviews/${editReview.id}` : '/reviews', {
                 method: editForm ? "PATCH" : "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -57,7 +58,7 @@ function NewReviewForm({handleSubmit, handleAddReview, reviewToEdit}){
 
     return (
         <div className = 'App'>
-            <Form onsubmit = {formik.handleSubmit}>
+            <Form onSubmit = {formik.handleSubmit}>
                 <label>Rating</label>
                 <input type = "number" name = "rating" value = {formik.values.rating} onChange = {formik.handleChange} />
                 <label>Comment</label>
