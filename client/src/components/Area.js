@@ -17,9 +17,8 @@ function Area({areas, user}){
         return <div>Area not found</div>
     }
     console.log(areaId)
-    function handleAddReview(review, rating, comment, date) {
+    function handleAddReview(rating, comment, date) {
         console.log(date)
-        console.log(review)
         console.log(rating)
         console.log(comment)
         fetch('/reviews', {
@@ -28,7 +27,6 @@ function Area({areas, user}){
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                review: review,
                 climbing_area_id: areaId,
                 rating: rating,
                 comment: comment,
@@ -36,7 +34,7 @@ function Area({areas, user}){
             })
         }).then(resp => {
             if (resp.ok) {
-                setReviews([...reviews, {review, rating, comment, date}]);
+                setReviews([...reviews, {rating, comment, date}]);
                 history.push(`/locations/${area.id}`);
             }
         }).catch(error => console.error('Error adding review:', error));

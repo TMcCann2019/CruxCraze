@@ -50,7 +50,6 @@ function App() {
     )    
 
     const addAreaToList = (area) => {
-        console.log('Area:', area)
         fetch('/create_climbing_area', {
             method: 'POST',
             headers: {
@@ -66,7 +65,6 @@ function App() {
                 }
             })
             .then(area => {
-                console.log('New Area:', setAreas)
                 setAreas(areas => [...areas, area]);
                 history.push(`/locations`);
             })

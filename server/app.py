@@ -90,10 +90,10 @@ class Reviews(Resource):
                 comment = data['comment'],
                 date = date_obj
             )
-            print(new_review.rating)
-            print(new_review.comment)
-            print(new_review.climbing_area_id)
-            print(new_review.user_id)
+            print('rating:', new_review.rating)
+            print('comment:', new_review.comment)
+            print('area_id:', new_review.climbing_area_id)
+            print('user_id:', new_review.user_id)
         except:
             abort(422, "Some of the values failed")
         db.session.add(new_review)

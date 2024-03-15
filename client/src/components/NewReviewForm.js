@@ -25,24 +25,8 @@ function NewReviewForm({ onAddReview }) {
     });
 
     const submitForm = (values) => {
-        fetch('/reviews', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(values),
-        })
-            .then((resp) => {
-                if (resp.ok) {
-                    resp.json().then((review) => {
-                        onAddReview(review);
-                        history.push('/locations');
-                    });
-                }
-            })
-            .catch((error) => {
-                console.error('Error submitting form:', error);
-            });
+        onAddReview(values.rating, values.comment, values.date);
+        history.push('/locations');
     };
 
     const handleClear = () => {
