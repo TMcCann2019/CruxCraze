@@ -98,9 +98,13 @@ class Reviews(Resource):
 api.add_resource(Reviews, "/reviews")
 
 class Reviews_By_Id(Resource):
+    def get (self, review_id):
+        review = Review.query.get(review_id)
+        if not review:
+            abort(404, "Review not found")
+        return make_response(review.to_dict(), 200)
+    
     def patch(self, review_id):
-        if not review_id:
-            abort(400, "Review ID not provided")
         review = Review.query.get(review_id)
         if not review:
             abort(404, "Review not found")
