@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
-function NewReviewForm({ onAddReview }) {
-    const history = useHistory();
+function EditReviewForm({ review, handleSubmit }) {
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
     const formSchema = yup.object().shape({
@@ -14,43 +12,24 @@ function NewReviewForm({ onAddReview }) {
         date: yup.date().required('Must provide a date'),
     });
 
-    const initialValues = { rating: '', comment: '', date: '' };
-
     const formik = useFormik({
-        initialValues: initialValues,
+        initialValues: review,
         validationSchema: formSchema,
         onSubmit: (values) => {
-            setIsConfirmationOpen(true);
+            handleSubmit(values);
         },
     });
-
-    const submitForm = (values) => {
-        fetch('/reviews', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(values),
-        })
-            .then((resp) => {
-                if (resp.ok) {
-                    resp.json().then((review) => {
-                        onAddReview(review);
-                        history.push('/');
-                    });
-                }
-            })
-            .catch((error) => {
-                console.error('Error submitting form:', error);
-            });
-    };
 
     const handleClear = () => {
         formik.resetForm();
     };
 
+    const handleConfirmation = () => {
+        setIsConfirmationOpen(true);
+    };
+
     const handleConfirm = () => {
-        submitForm(formik.values);
+        formik.handleSubmit();
         setIsConfirmationOpen(false);
     };
 
@@ -67,9 +46,12 @@ function NewReviewForm({ onAddReview }) {
                 <input type="text" name="comment" value={formik.values.comment} onChange={formik.handleChange} />
                 <label>Date</label>
                 <input type="date" name="date" value={formik.values.date} onChange={formik.handleChange} />
-                <button type="submit">Submit</button>
+                <button type="submit">Update</button>
                 <button type="button" onClick={handleClear}>
                     Clear
+                </button>
+                <button type="button" onClick={handleConfirmation}>
+                    Confirm
                 </button>
             </Form>
             {isConfirmationOpen && (
@@ -83,25 +65,25 @@ function NewReviewForm({ onAddReview }) {
     );
 }
 
-export default NewReviewForm;
+export default EditReviewForm;
 
 const Form = styled.form`
-    display:flex;
-    flex-direction:column;
+    display: flex;
+    flex-direction: column;
     width: 400px;
-    margin:auto;
-    font-family:Arial;
-    font-size:30px;
-    input[type=submit]{
-      background-color:green;
-      color: white;
-      height:40px;
-      font-family:Arial;
-      font-size:30px;
-      margin-top:10px;
-      margin-bottom:10px;
+    margin: auto;
+    font-family: Arial;
+    font-size: 30px;
+    input[type='submit'] {
+        background-color: green;
+        color: white;
+        height: 40px;
+        font-family: Arial;
+        font-size: 30px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
-  `
+`;
 
 const ConfirmationDialog = styled.div`
     position: fixed;

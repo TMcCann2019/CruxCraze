@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import NewReviewForm from './NewReviewForm';
+import EditReviewForm from './EditReviewForm';
 
-function Review({ review, handleDelete, updateReview, editReview }) {
-    const history = useHistory();
+function Review({ review, handleDelete, updateReview }) {
     const [isEditing, setIsEditing] = useState(false);
 
     const handleEdit = () => {
@@ -22,12 +20,7 @@ function Review({ review, handleDelete, updateReview, editReview }) {
     return (
         <div className="review">
             {isEditing ? (
-                <NewReviewForm
-                    review={review}
-                    handleSubmit={handleUpdateReview}
-                    editReview={editReview}
-                    buttonText="Update"
-                />
+                <EditReviewForm review={review} handleSubmit={handleUpdateReview} />
             ) : (
                 <>
                     <h3>{review.title}</h3>

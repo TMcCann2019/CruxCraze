@@ -109,8 +109,16 @@ class Reviews_By_Id(Resource):
         if not review:
             abort(404, "Review not found")
         data = request.get_json()
-        for attr in data:
-            setattr(review, attr, data[attr])
+        date_str = data['date']
+        if date_str:
+            try:
+                date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+            except ValueError:
+                abort(400, "Invalid date formate")
+            review.date = date_obj
+        for attr, value in data.items():
+            if attr != 'date':
+                setattr(review, attr, value)
         db.session.commit()
         return make_response(review.to_dict(), 200)
 

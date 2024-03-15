@@ -1,47 +1,51 @@
-import { useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import Review from './Review';
 
-function ReviewsContainer() {
+const ReviewsContainer = () => {
     const [reviews, setReviews] = useState([]);
-    const [reviewToEdit, setReviewToEdit] = useState(null);
-    const history = useHistory();
-
-    const deleteReview = (deletedReview) => setReviews(reviews => reviews.filter((review) => review.id !== deletedReview.id));
-    const updateReview = (reviewToEdit) => {
-        setReviewToEdit(reviewToEdit);
-        history.push('/reviews');
-    };
 
     useEffect(() => {
-        fetchReviews()
-    }, [])
+        fetchReviews();
+    }, []);
 
-    function fetchReviews() {
+    const fetchReviews = () => {
         fetch('/reviews')
-        .then(resp => resp.json())
-        .then(data => setReviews(data))
-        .catch(error => console.error('Error fetching reviews:', error))
-    }
+            .then((resp) => resp.json())
+            .then((data) => setReviews(data))
+            .catch((error) => console.error('Error fetching reviews:', error));
+    };
 
-    function handleDelete(review) {
+    const handleDelete = (review) => {
         fetch(`/reviews/${review.id}`, {
             method: 'DELETE',
-        }).then(resp => {
+        }).then((resp) => {
             if (resp.ok) {
-                deleteReview(review);
-                history.push('/');
+                setReviews((prevReviews) => prevReviews.filter((rev) => rev.id !== review.id));
             }
         });
-    }
+    };
+
+    const updateReview = (updatedReview) => {
+        const index = reviews.findIndex((rev) => rev.id === updatedReview.id);
+        if (index !== -1) {
+            const updatedReviews = [...reviews];
+            updatedReviews[index] = updatedReview;
+            setReviews(updatedReviews);
+        }
+    };
 
     return (
         <>
             {reviews.map((review) => (
-                <Review key={review.id} review={review} handleDelete={handleDelete} updateReview={updateReview} editReview={reviewToEdit}/>
+                <Review
+                    key={review.id}
+                    review={review}
+                    handleDelete={handleDelete}
+                    updateReview={updateReview}
+                />
             ))}
         </>
     );
-}
+};
 
 export default ReviewsContainer;
