@@ -36,7 +36,7 @@ function NewReviewForm({ onAddReview }) {
                 if (resp.ok) {
                     resp.json().then((review) => {
                         onAddReview(review);
-                        history.push('/');
+                        history.push('/locations');
                     });
                 }
             })

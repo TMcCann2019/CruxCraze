@@ -81,6 +81,7 @@ class Reviews(Resource):
         data = request.get_json()
         date_str = data['date']
         date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+        print(date_obj)
         try:
             new_review = Review(
                 user_id = session.get('user_id'),
@@ -89,6 +90,10 @@ class Reviews(Resource):
                 comment = data['comment'],
                 date = date_obj
             )
+            print(new_review.rating)
+            print(new_review.comment)
+            print(new_review.climbing_area_id)
+            print(new_review.user_id)
         except:
             abort(422, "Some of the values failed")
         db.session.add(new_review)
@@ -159,6 +164,7 @@ def create_climbing_area():
 
         new_area = Climbing_Area(
             name=data['name'],
+            location_id=location.id,
             difficulty=data['difficulty'],
             address=data['address'],
             clip_rating=data['clip_rating'],

@@ -49,13 +49,14 @@ function App() {
         })
     )    
 
-    const addAreaToList = (areaData) => {
+    const addAreaToList = (area) => {
+        console.log('Area:', area)
         fetch('/create_climbing_area', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(areaData)
+            body: JSON.stringify(area)
         })
             .then(resp => {
                 if (resp.ok) {
@@ -65,6 +66,7 @@ function App() {
                 }
             })
             .then(area => {
+                console.log('New Area:', setAreas)
                 setAreas(prevAreas => [...prevAreas, area]);
                 history.push(`/locations`);
             })
