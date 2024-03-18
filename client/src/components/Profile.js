@@ -29,6 +29,9 @@ const ProfileContainer = styled.div`
     border-radius: 5px;
     background: url('https://d1nymbkeomeoqg.cloudfront.net/photos/22/16/343150_21992_XL.jpg');
     background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    color: White;
 `
 
 const ProfileHeader = styled.div`
