@@ -27,6 +27,8 @@ const ProfileContainer = styled.div`
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background: url('https://d1nymbkeomeoqg.cloudfront.net/photos/22/16/343150_21992_XL.jpg');
+    background-size: cover;
 `
 
 const ProfileHeader = styled.div`
