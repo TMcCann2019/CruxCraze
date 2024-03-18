@@ -13,9 +13,9 @@ function Locations({ areas }) {
         mapboxgl.accessToken = 'pk.eyJ1IjoidG1jY2FubjIwMjQiLCJhIjoiY2x0bmN2ZDExMDViNjJrbnZubGl3eWtuYyJ9.zHRAh7uDESTOlIruNg6o5Q';
         const maps = new mapboxgl.Map({
             container: 'map', // container ID
-            style: 'mapbox://styles/mapbox/streets-v12', // style URL
-            center: [-74.5, 40], // starting position [lng, lat]
-            zoom: 9, // starting zoom
+            style: 'mapbox://styles/tmccann2024/cltx93xbr005m01qucf73dqg4', // style URL
+            center: [-74.4, 40.79], // starting position [lng, lat]
+            zoom: 6, // starting zoom
         });
         setMap(() => maps);
 
