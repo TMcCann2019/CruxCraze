@@ -62,5 +62,5 @@ const LocationsList = styled.div`
 
 const MapContainer = styled.div`
     flex: 1;
-    height: 400px;
+    height: 600px;
 `;
