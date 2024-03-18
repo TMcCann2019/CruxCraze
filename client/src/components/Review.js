@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from'styled-components';
 import EditReviewForm from './EditReviewForm';
 
 function Review({ review, handleDelete, updateReview }) {
@@ -18,7 +19,7 @@ function Review({ review, handleDelete, updateReview }) {
     };
 
     return (
-        <div className="review">
+        <ReviewHeader>
             {isEditing ? (
                 <EditReviewForm review={review} handleSubmit={handleUpdateReview} />
             ) : (
@@ -31,8 +32,18 @@ function Review({ review, handleDelete, updateReview }) {
                     <button onClick={handleRemove}>Delete</button>
                 </>
             )}
-        </div>
+        </ReviewHeader>
     );
 }
 
 export default Review;
+
+const ReviewHeader = styled.div`
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: url('https://d1nymbkeomeoqg.cloudfront.net/photos/18/94/310881_26652_XL.jpg');
+    background-size: cover;
+`
