@@ -54,6 +54,9 @@ function Navigation({updateUser}){
                     <Link to="/areaForm">Add a New Area</Link>
                 </li>
                 <li>
+                    <Link to="/authentication">Login</Link>
+                </li>
+                <li>
                     <Link to="/profile">Profile</Link>
                 </li>
                 <li>
