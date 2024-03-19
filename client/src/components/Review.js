@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from'styled-components';
 import EditReviewForm from './EditReviewForm';
+import ClipRating from './clip-rating';
 
 function Review({ review, handleDelete, updateReview }) {
     const [isEditing, setIsEditing] = useState(false);
@@ -26,7 +27,9 @@ function Review({ review, handleDelete, updateReview }) {
                 <>
                     <h3>{review.title}</h3>
                     <p>{review.comment}</p>
-                    <p>Rating: {review.rating}</p>
+                    <div>
+                        <ClipRating rating={review.rating} />
+                    </div>
                     <p>Date: {review.date}</p>
                     <button onClick={handleEdit}>Edit</button>
                     <button onClick={handleRemove}>Delete</button>
