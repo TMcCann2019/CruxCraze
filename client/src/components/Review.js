@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from'styled-components';
 import EditReviewForm from './EditReviewForm';
-import ClipRating from './clip-rating';
+import ClipRating from './ClipRating';
 
 function Review({ review, handleDelete, updateReview }) {
     const [isEditing, setIsEditing] = useState(false);
@@ -49,4 +49,7 @@ const ReviewHeader = styled.div`
     border-radius: 5px;
     background: url('https://d1nymbkeomeoqg.cloudfront.net/photos/18/94/310881_26652_XL.jpg');
     background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    color: white;
 `
