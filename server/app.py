@@ -50,6 +50,8 @@ class User_By_Id(Resource):
         if 'name' in data:
             user.name = data['name']
         if 'email' in data:
+            if User.query.filter_by(email=data['email']).first():
+                abort(422, "Email is associated with another account")
             user.email = data['email']
         if 'password' in data:
             user.password_hash = data['password']

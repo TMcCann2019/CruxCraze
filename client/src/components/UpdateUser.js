@@ -10,17 +10,17 @@ function UpdateUser({user, updateUser}){
     const history = useHistory()
     
     const formSchema = yup.object().shape({
-        name: isEditing ? yup.string() : user.name,
-        email: isEditing? yup.string() : user.email,
-        password: isEditing? yup.string() : user.password,
-        review_count: isEditing? yup.number() : user.review_count
+        name: yup.string().required(),
+        email: yup.string().required(),
+        password: yup.string().required(),
+        review_count: yup.number()
     })
 
     const formik = useFormik({
         initialValues: {
             name: user.name,
             email: user.email,
-            password: user.password_hash,
+            password: user.password,
             review_count: user.review_count
         },
         validationSchema: formSchema,
