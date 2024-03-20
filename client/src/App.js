@@ -11,6 +11,7 @@ import Area from './components/Area';
 import ReviewsContainer from './components/ReviewsContainer';
 import { UserContext } from './context/user';
 import NewReviewForm from './components/NewReviewForm';
+import UpdateUser from './components/UpdateUser';
 
 function App() {
     const [areas, setAreas] = useState([]);
@@ -103,6 +104,9 @@ function App() {
                 </Route>
                 <Route exact path="/profile">
                     <Profile user={user} />
+                </Route>
+                <Route path="/profile/:id">
+                    <UpdateUser updateUser={setUser} />
                 </Route>
             </Switch>
         </>

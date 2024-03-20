@@ -1,9 +1,13 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import styled from 'styled-components'
 import { UserContext } from "../context/user"
+import UpdateUser from './UpdateUser'
 
 function Profile(){
     const {user, setUser} = useContext(UserContext)
+    const [isEditing, setIsEditing] = useState(false)
+
+    const handleClick = () => setIsEditing((isEditing) => !isEditing)
 
     return (
         <ProfileContainer>
@@ -14,6 +18,11 @@ function Profile(){
                 <p>Email: {user.email}</p>
                 <p>Number of Reviews: {user.review_count}</p>
             </ProfileInfo>
+            {isEditing? (
+                <UpdateUser user={user} updateUser={setUser} />
+            ) : (
+                <button onClick={handleClick}>Edit</button>
+            )}
         </ProfileContainer>
     )
 }

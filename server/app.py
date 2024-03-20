@@ -41,6 +41,23 @@ class Users(Resource):
 
 api.add_resource(Users, "/signup")
 
+class User_By_Id(Resource):
+    def patch(self, user_id):
+        data = request.get_json()
+        user = User.query.filter_by(id = user_id).first()
+        if not user:
+            abort(404, "User not found")
+        if 'name' in data:
+            user.name = data['name']
+        if 'email' in data:
+            user.email = data['email']
+        if 'password' in data:
+            user.password_hash = data['password']
+        db.session.commit()
+        return make_response(user.to_dict(), 200)
+    
+api.add_resource(User_By_Id, "/users/<int:user_id>")
+
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
