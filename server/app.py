@@ -12,12 +12,6 @@ from models import *
 def index(id=0):
     return render_template("index.html")
 
-# @app.before_request
-# def check_auth():
-#     open_access = ["signup", "login", "homepage", "authorized"]
-#     if request.endpoint not in open_access and not session.get('user_id'):
-#         raise Unauthorized
-
 @app.route('/authorized')
 def authorized():
     user = User.query.filter_by(id = session.get('user_id')).first()
@@ -46,15 +40,6 @@ class Users(Resource):
         return response
 
 api.add_resource(Users, "/signup")
-
-# class User_By_Id(Resource):
-#     def get(self, user_id):
-#         user = User.query.filter(User.id == user_id).first()
-#         if not user:
-#             abort(404, "User not found")
-#         return make_response(user.to_dict(), 200)
-    
-# api.add_resource(User_By_Id, "/users/<int:user_id>")
 
 @app.route('/login', methods=['POST'])
 def login():

@@ -1,7 +1,6 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from 'styled-components'
 import { UserContext } from "../context/user"
-import {useContext} from 'react'
 
 function Profile(){
     const {user, setUser} = useContext(UserContext)
