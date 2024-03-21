@@ -13,7 +13,7 @@ if __name__ == '__main__':
         locations = []
 
         area1 = Climbing_Area(
-            name = 'Gravity Valut Chatham',
+            name = 'Gravity Vault Chatham',
             location_id = 1,
             difficulty = 'beginner',
             address = '40 Watchung Avenue',
@@ -31,7 +31,7 @@ if __name__ == '__main__':
         areas.append(area1)
 
         area2 = Climbing_Area(
-            name = 'Gavity Valut Hoboken',
+            name = 'Gravity Vault Hoboken',
             location_id = 2,
             difficulty = 'beginner',
             address = '1423 Clinton Street',
@@ -49,7 +49,7 @@ if __name__ == '__main__':
         areas.append(area2)
 
         area3 = Climbing_Area(
-            name = 'Gavity Valut Flemington',
+            name = 'Gravity Vault Flemington',
             location_id = 3,
             difficulty = 'beginner',
             address = '17 Minneakoning Road',
@@ -67,7 +67,7 @@ if __name__ == '__main__':
         areas.append(area3)
 
         area4 = Climbing_Area(
-            name = 'Gravity Valut Brick',
+            name = 'Gravity Vault Brick',
             location_id = 4,
             difficulty = 'beginner',
             address = '110 Brick Plaza',
@@ -85,7 +85,7 @@ if __name__ == '__main__':
         areas.append(area4)
 
         area5 = Climbing_Area(
-            name = 'Gavity Valut Upper Saddle River',
+            name = 'Gravity Vault Upper Saddle River',
             location_id = 5,
             difficulty = 'beginner',
             address = '107 Pleasant Avenue',
@@ -103,7 +103,7 @@ if __name__ == '__main__':
         areas.append(area5)
 
         area6 = Climbing_Area(
-            name = 'Gavity Valut Middletown',
+            name = 'Gravity Vault Middletown',
             location_id = 6,
             difficulty = 'beginner',
             address = '37 Kanes Lane',
@@ -121,7 +121,7 @@ if __name__ == '__main__':
         areas.append(area6)
 
         area7 = Climbing_Area(
-            name = 'Gavity Valut Montclair',
+            name = 'Gravity Vault Montclair',
             location_id = 7,
             difficulty = 'beginner',
             address = '8 Seymour Plaza',
@@ -139,7 +139,7 @@ if __name__ == '__main__':
         areas.append(area7)
 
         area8 = Climbing_Area(
-            name = 'Gavity Valut Voorhees',
+            name = 'Gravity Vault Voorhees',
             location_id = 8,
             difficulty = 'beginner',
             address = '333 Preston Avenue',
@@ -211,7 +211,7 @@ if __name__ == '__main__':
         areas.append(area11)
 
         area12 = Climbing_Area(
-            name = 'Thatcher',
+            name = 'Thacher',
             location_id = 12,
             difficulty = 'intermediate',
             address = '60-76 Hales Cave Road',
