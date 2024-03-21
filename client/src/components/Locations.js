@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import mapboxgl, { DoubleClickZoomHandler } from 'mapbox-gl';
+import mapboxgl from 'mapbox-gl';
 import AreaContainer from './AreaContainer';
 import styled from'styled-components';
 
