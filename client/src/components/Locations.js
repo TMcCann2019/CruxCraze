@@ -10,15 +10,6 @@ function Locations({ areas }) {
     const [locations, setLocations] = useState([]);
     const [searchQuery, setSearchQuery] = useState('')
     const [filteredLocations, setFilteredLocations] = useState([])
-    const [selectedFilters, setSelectedFilters] = useState({
-        need_own_gear: false,
-        retail_shop: false,
-        fitness_area: false,
-        lead_climbing: false,
-        bouldering: false,
-        moon_board: false,
-        kilter_board: false
-    })
 
     useEffect(() => {
         mapboxgl.accessToken = 'pk.eyJ1IjoidG1jY2FubjIwMjQiLCJhIjoiY2x0bmN2ZDExMDViNjJrbnZubGl3eWtuYyJ9.zHRAh7uDESTOlIruNg6o5Q';
