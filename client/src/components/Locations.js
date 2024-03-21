@@ -41,36 +41,15 @@ function Locations({ areas }) {
 
     useEffect(() => {
         if (searchQuery.trim() === ''){
-            applyFilters(locations)
+            setFilteredLocations(locations)
         } else {
             const filtered = locations.filter(area => area.name.toLowerCase().includes(searchQuery.toLowerCase()))
-            applyFilters(filtered)
+            setFilteredLocations(filtered)
         }
     }, [searchQuery, locations])
 
-    const applyFilters = (locationsToFilter) => {
-        const filtered = locationsToFilter.filter(area => {
-            const matchesFilters = Object.entries(selectedFilters).every(([key, value]) => {
-                if (!value) return true
-                if (key === 'name') return true
-                return area[key]
-            })
-            return matchesFilters
-        })
-        setFilteredLocations(filtered)
-    }
-
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value)
-    }
-
-    const handleFilterChange = (event) => {
-        const {name, checked} = event.target
-        console.log(`Checkbox "${name}" clicked. Checked: ${checked}`)
-        setSelectedFilters(prevFilters => ({
-            ...prevFilters,
-            [name]: checked,
-        }))
     }
 
     return (
@@ -83,72 +62,6 @@ function Locations({ areas }) {
                     onChange={handleSearchChange}
                 />
             </SearchBar>
-            <div>
-                <h3>Filters:</h3>
-                <label>
-                    <input
-                        type="checkbox"
-                        name="need_own_gear"
-                        checked={selectedFilters.need_own_gear}
-                        onChange={handleFilterChange}
-                    />
-                    Need Own Gear
-                </label>
-                <label>
-                    <input
-                        type="checkbox"
-                        name="retail_shop"
-                        checked={selectedFilters.retail_shop}
-                        onChange={handleFilterChange}
-                    />
-                    Retail Shop
-                </label>
-                <label>
-                    <input
-                        type="checkbox"
-                        name="fitness_area"
-                        checked={selectedFilters.fitness_area}
-                        onChange={handleFilterChange}
-                    />
-                    Fitness Area
-                </label>
-                <label>
-                    <input
-                        type="checkbox"
-                        name="lead_climbing"
-                        checked={selectedFilters.lead_climbing}
-                        onChange={handleFilterChange}
-                    />
-                    Lead Climbing
-                </label>
-                <label>
-                    <input
-                        type="checkbox"
-                        name="bouldering"
-                        checked={selectedFilters.bouldering}
-                        onChange={handleFilterChange}
-                    />
-                    Bouldering
-                </label>
-                <label>
-                    <input
-                        type="checkbox"
-                        name="moon_board"
-                        checked={selectedFilters.moon_board}
-                        onChange={handleFilterChange}
-                    />
-                    Moon Board
-                </label>
-                <label>
-                    <input
-                        type="checkbox"
-                        name="kilter_board"
-                        checked={selectedFilters.kilter_board}
-                        onChange={handleFilterChange}
-                    />
-                    Kilter Board
-                </label>
-            </div>
             <LocationsList>
                 <h2>Locations</h2>
                 <ul>
