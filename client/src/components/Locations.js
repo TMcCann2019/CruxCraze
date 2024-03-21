@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
+import mapboxgl, { DoubleClickZoomHandler } from 'mapbox-gl';
 import AreaContainer from './AreaContainer';
 import styled from'styled-components';
 
@@ -49,10 +49,14 @@ function Locations({ areas }) {
     }, [searchQuery, locations])
 
     const applyFilters = (locationsToFilter) => {
-        const filtered = locationsToFilter.filter(area => Object.keys(selectedFilters).every(key => {
-            if (key === 'name') return true
-            return !selectedFilters[key] || area[key]
-        }))
+        const filtered = locationsToFilter.filter(area => {
+            const matchesFilters = Object.entries(selectedFilters).every(([key, value]) => {
+                if (!value) return true
+                if (key === 'name') return true
+                return area[key]
+            })
+            return matchesFilters
+        })
         setFilteredLocations(filtered)
     }
 
@@ -62,9 +66,10 @@ function Locations({ areas }) {
 
     const handleFilterChange = (event) => {
         const {name, checked} = event.target
+        console.log(`Checkbox "${name}" clicked. Checked: ${checked}`)
         setSelectedFilters(prevFilters => ({
             ...prevFilters,
-            [name]: checked
+            [name]: checked,
         }))
     }
 
