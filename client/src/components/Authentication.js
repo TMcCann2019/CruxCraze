@@ -46,15 +46,6 @@ function Authentication({updateUser}) {
         }
     })
 
-    const handleGoogleSignIn = () => {
-        window.gapi.auth2.getAuthInstance().signIn().then((googleUser) => {
-            const profile = googleUser.getBasicProfile()
-            const email = profile.getEmail()
-            const name = profile.getName()
-            console.log('Signed in as: ' + name + email)
-        })
-    }
-
     return (
         <>
         {formik.errors && Object.values(formik.errors).map((error) => <h2 style = {{color: 'red'}}>{error}</h2>)}
@@ -80,7 +71,6 @@ function Authentication({updateUser}) {
             )}
             <input type = 'submit' value={signUp ? 'Sign Up!' : 'Log In!'} />
         </Form>
-        <GoogleSignInButton onClick={handleGoogleSignIn}>Sign in with Google</GoogleSignInButton>
         </>
     )
 }
@@ -104,14 +94,3 @@ input[type=submit]{
   margin-bottom:10px;
 }
 `
-
-const GoogleSignInButton = styled.button`
-    background-color: #4285f4;
-    color: white;
-    height: 40px;
-    font-family: Arial;
-    font-size: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-`;
