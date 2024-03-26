@@ -23,6 +23,12 @@ function About() {
                     <li>Tim McCann - Founder & CEO</li>
                     <li>Tim McCann - Lead Developer</li>
                 </ul>
+                <SectionTitle>Support and Contact</SectionTitle>
+                <p>If you have any questions about CruxCraze, feel free to contact us at the following:</p>
+                <ul>
+                    <li>Use the contact form that will send us an email to look into what you need.</li>
+                    <li>Please give us 5 business days to get back to you and review your request</li>
+                </ul>
             </ContentContainer>
         </AboutContainer>
     );
