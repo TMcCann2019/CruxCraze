@@ -26,7 +26,8 @@ function About() {
                 <SectionTitle>Support and Contact</SectionTitle>
                 <p>If you have any questions about CruxCraze, feel free to contact us at the following:</p>
                 <ul>
-                    <li>cruzcrazesupport@gmail.com</li>
+                    <li>Use the contact form that will send us an email to look into what you need.</li>
+                    <li>Please give us 5 business days to get back to you and review your request</li>
                 </ul>
             </ContentContainer>
         </AboutContainer>

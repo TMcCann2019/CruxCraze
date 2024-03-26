@@ -60,6 +60,9 @@ function Navigation({updateUser}){
                     <Link to="/profile">Profile</Link>
                 </li>
                 <li>
+                    <Link to='/contactForm'>Contact</Link>
+                </li>
+                <li>
                     <button onClick={handleLogout}>Logout</button>
                 </li>
             </ul>

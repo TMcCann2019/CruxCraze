@@ -1,18 +1,18 @@
 import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const ContactForm = () => {
  const form = useRef();
- const navigate = useNavigate();
+ const history = useHistory();
 
  const sendEmail = (e) => {
    e.preventDefault();
    if(window.confirm("Are you sure you want to send this email?")){ 
-   emailjs.sendForm('service_jz3d31c', 'template_avspnq3', form.current, '2CBV5usGCJRMr4WbB')
+   emailjs.sendForm('service_lxlkefd', 'template_2otsc6s', form.current, '_IYx2GgfgT2t7OQBr')
      .then((result) => {
          alert("Your Message Has Been Sent")
-         navigate("/")
+         history.push("/")
      }, (error) => {
          alert("Your Message Cannot Be Sent")
      });
