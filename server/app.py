@@ -28,7 +28,7 @@ class Users(Resource):
                 name=data['name'],
                 email=data['email'],
                 password_hash=data['password'],
-                review_count = User.review_count(),
+                review_count = data['review_count'],
             )
         except:
             abort(422, "Some of the values failed")
